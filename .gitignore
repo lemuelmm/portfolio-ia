@@ -1,0 +1,7 @@
+# Memória local do Claude Code (fica em ~/.claude/projects/, mas reforço aqui)
+memory/
+.claude/settings.local.json
+
+# Sistema
+.DS_Store
+Thumbs.db
