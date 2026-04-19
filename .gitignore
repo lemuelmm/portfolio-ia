@@ -5,3 +5,13 @@ memory/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Node / Astro
+node_modules/
+.astro/
+dist/
+*.log
+npm-debug.log*
+.env
+.env.*
+!.env.example

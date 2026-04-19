@@ -1,0 +1,31 @@
+:root {
+  --bg: #FAFAF7;
+  --text: #0A0A0A;
+  --text-muted: #666666;
+  --divider: #E0E0E0;
+  --accent: #2D4A2B;
+  --slot-empty: #F0F0EC;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --fs-hero: clamp(40px, 8vw, 80px);
+  --fs-case-title: clamp(36px, 5vw, 40px);
+  --fs-impact-number: clamp(96px, 14vw, 120px);
+  --fs-chapter-number: clamp(72px, 10vw, 96px);
+  --fs-next-case: clamp(32px, 5vw, 48px);
+  --fs-list-title: clamp(24px, 3vw, 28px);
+  --fs-lead: 20px;
+  --fs-body: 18px;
+  --fs-small: 14px;
+  --fs-label: 13px;
+
+  --pad-x: clamp(32px, 5vw, 120px);
+  --gap-section: clamp(96px, 12vw, 160px);
+  --gap-element: 24px;
+  --content-max: 700px;
+  --container-max: 1120px;
+
+  --bar-horizontal: 2px;
+  --bar-vertical: 4px;
+}
