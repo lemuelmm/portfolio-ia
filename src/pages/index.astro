@@ -1,0 +1,156 @@
+---
+import Base from '../layouts/Base.astro';
+import CaseCard from '../components/CaseCard.astro';
+import DividerBar from '../components/DividerBar.astro';
+import HeroBar from '../components/HeroBar.astro';
+
+const cases = [
+  {
+    title: 'SIENGE · STARIAN',
+    description: 'Discovery de IA para criação de títulos em lote.',
+    meta: '2025 a atual',
+    href: '#',
+  },
+  {
+    title: 'GEOPARK ARARIPE',
+    description: 'Digitalização dos processos de avaliação ambiental (UNESCO).',
+    meta: '2024',
+    href: '/work/geopark',
+  },
+  {
+    title: 'YOUSE SEGUROS',
+    description: 'Login com CPF e Calculadora de CO2.',
+    meta: '2022 a 2024',
+    href: '#',
+  },
+  {
+    title: 'PAGURU DIGITAL SOLUTIONS',
+    description: 'Projetos em educação, saúde e jurídico.',
+    meta: '2020 a 2022',
+    href: '#',
+  },
+];
+---
+
+<Base title="Lemuel Monteiro — Product Designer">
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">LEMUEL MONTEIRO</h1>
+      <p class="hero__subtitle">PRODUCT DESIGNER</p>
+      <p class="hero__lead">
+        Cinco anos construindo produtos digitais, com uma trilha consistente em sustentabilidade.
+      </p>
+      <p class="hero__meta">Juazeiro do Norte · Ceará</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container about">
+    <p class="label">Sobre</p>
+    <p class="about__body">
+      Product Designer com cinco anos de experiência em produtos digitais. Atuo hoje na Starian
+      (antiga Softplan), no time de Contas a Pagar do Sienge, e mantenho uma trilha consistente de
+      projetos em sustentabilidade: Geopark Araripe (UNESCO), GIR e a Calculadora de CO2 da Youse
+      Seguros.
+    </p>
+    <a href="#" class="about__more">→ Ler mais</a>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container works">
+    <p class="label works__label">Trabalhos</p>
+    <ul class="works__list">
+      {cases.map((c, i) => (
+        <li>
+          <CaseCard title={c.title} description={c.description} meta={c.meta} href={c.href} />
+          {i < cases.length - 1 && <hr class="works__divider" />}
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(80px, 10vw, 140px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-hero);
+    letter-spacing: -0.02em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-top: -8px;
+  }
+
+  .hero__lead {
+    font-size: var(--fs-lead);
+    line-height: 1.45;
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+    margin-top: 16px;
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .about__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .about__more {
+    font-size: 16px;
+    width: max-content;
+  }
+
+  .about__more:hover {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
+  }
+
+  .works__label {
+    margin-bottom: 48px;
+  }
+
+  .works__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .works__divider {
+    border: 0;
+    height: 1px;
+    background: var(--divider);
+    margin: 0;
+  }
+</style>

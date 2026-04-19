@@ -1,0 +1,330 @@
+---
+import Base from '../../layouts/Base.astro';
+import DividerBar from '../../components/DividerBar.astro';
+import HeroBar from '../../components/HeroBar.astro';
+import ImageSlot from '../../components/ImageSlot.astro';
+import ImpactBlock from '../../components/ImpactBlock.astro';
+
+const chapters = [
+  {
+    number: '01',
+    title: 'Graduação (NexTI)',
+    description: 'Primeiro contato, estruturação do problema e protótipo inicial de solução.',
+  },
+  {
+    number: '02',
+    title: 'Período voluntário',
+    description:
+      'Retomada por conta própria, com refinamentos baseados em experiências acumuladas no mercado.',
+  },
+  {
+    number: '03',
+    title: '2024 com a instituição',
+    description: 'Liderança direta da implementação da solução digital, dentro da estrutura do Geopark.',
+  },
+];
+
+const approach = [
+  {
+    title: 'Liderança de time',
+    description: 'Coordenação do time de desenvolvimento em ciclos ágeis.',
+  },
+  {
+    title: 'Definição de escopo',
+    description:
+      'Identificação da necessidade de uma fórmula matemática para mensurar as condições dos locais avaliados, gerando relatórios mais precisos para os gestores.',
+  },
+  {
+    title: 'Pesquisa e design',
+    description:
+      'Entrevistas com stakeholders (avaliadores e gestores), protótipos de alta fidelidade e testes de usabilidade.',
+  },
+];
+
+const solutions = [
+  {
+    title: 'App para avaliadores',
+    description: 'Ferramenta de coleta em campo, substituindo o caderno e caneta do processo anterior.',
+  },
+  {
+    title: 'Painel web para gestores',
+    description:
+      'Consolidação dos dados, aplicação da fórmula matemática e geração de relatórios para tomada de decisão.',
+  },
+];
+---
+
+<Base title="Geopark Araripe — Lemuel Monteiro">
+  <div class="container back">
+    <a href="/" class="back__link">← Trabalhos</a>
+  </div>
+
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">GEOPARK ARARIPE</h1>
+      <p class="hero__subtitle">Designer de Produtos</p>
+      <p class="hero__meta">Abr. 2024 a Dez. 2024 · Crato, CE</p>
+    </div>
+    <div class="hero__slot">
+      <ImageSlot ratio="16/9" label="Hero do case Geopark Araripe — imagem a incluir" />
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Contexto</p>
+    <p class="section__body">
+      Atuei no Geopark Araripe, instituição ligada à UNESCO que atua como catalisador de
+      transformação sustentável na região do Cariri cearense (área que engloba a Floresta Nacional
+      do Araripe, a primeira FLONA do Brasil). O foco do projeto era digitalizar os processos de
+      avaliação das áreas de preservação.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Histórico do projeto</p>
+    <p class="section__body">
+      Esse projeto atravessou três fases da minha trajetória, e cada retomada trouxe refinamentos
+      baseados no que eu tinha aprendido no intervalo:
+    </p>
+    <ol class="chapters">
+      {chapters.map((ch) => (
+        <li class="chapter">
+          <span class="chapter__number" aria-hidden="true">{ch.number}</span>
+          <div class="chapter__content">
+            <h3 class="chapter__title">{ch.title}</h3>
+            <p class="chapter__description">{ch.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">O desafio</p>
+    <p class="section__body">
+      O processo manual de avaliação dos locais de preservação, feito com papel e caneta em campo,
+      gerava atrasos na coleta e análise dos dados. Esses atrasos comprometiam o planejamento das
+      ações de conservação, que é o trabalho central do Geopark.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">A abordagem</p>
+    <ul class="list-block">
+      {approach.map((item) => (
+        <li class="list-block__item">
+          <h3 class="list-block__title">{item.title}</h3>
+          <p class="list-block__description">{item.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">A solução</p>
+    <div class="solutions">
+      {solutions.map((sol) => (
+        <article class="solution">
+          <h3 class="list-block__title">{sol.title}</h3>
+          <p class="list-block__description">{sol.description}</p>
+          <ImageSlot ratio="4/3" label={`Tela de ${sol.title} — imagem a incluir`} />
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <ImpactBlock
+    number="80%"
+    primary="Redução no tempo do processo de avaliação."
+    secondary="Ferramenta em fase de testes finais com gestores ambientais ao fim da minha atuação em 2024."
+  />
+
+  <section class="container section next">
+    <p class="label">Próximo case</p>
+    <a href="#" class="next__link">
+      <span>YOUSE SEGUROS</span>
+      <span aria-hidden="true"> →</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .back {
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .back__link {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .hero {
+    position: relative;
+    padding-block: clamp(48px, 6vw, 80px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text);
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .chapters {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin-top: 16px;
+  }
+
+  .chapter {
+    display: grid;
+    grid-template-columns: minmax(auto, 200px) 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .chapter__number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-chapter-number);
+    line-height: 0.9;
+    color: var(--accent);
+  }
+
+  .chapter__content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: var(--content-max);
+  }
+
+  .chapter__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+  }
+
+  .chapter__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  .list-block {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .list-block__item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: var(--content-max);
+  }
+
+  .list-block__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+  }
+
+  .list-block__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  .solutions {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .solution {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .next__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    text-decoration: none;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .next__link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .chapter {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+</style>
