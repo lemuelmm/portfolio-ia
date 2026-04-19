@@ -1,0 +1,22 @@
+---
+interface Props {
+  ratio?: '16/9' | '4/3' | '1/1';
+  label?: string;
+}
+
+const { ratio = '4/3', label } = Astro.props;
+---
+
+<div
+  class="slot"
+  style={`aspect-ratio: ${ratio};`}
+  role="img"
+  aria-label={label ?? 'Imagem ainda não disponível'}
+></div>
+
+<style>
+  .slot {
+    width: 100%;
+    background: var(--slot-empty);
+  }
+</style>

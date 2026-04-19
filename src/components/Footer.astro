@@ -1,0 +1,78 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <hr class="footer__divider" />
+    <div class="footer__grid">
+      <div class="footer__col">
+        <a href="mailto:lemuelmonteirom@gmail.com" class="footer__link">lemuelmonteirom@gmail.com</a>
+        <a
+          href="https://www.linkedin.com/in/lemuelmonteiro"
+          target="_blank"
+          rel="noopener"
+          class="footer__link"
+        >
+          LinkedIn
+        </a>
+      </div>
+      <div class="footer__col footer__col--meta">
+        <span>Juazeiro do Norte · CE</span>
+        <span>{year}</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: var(--gap-section);
+    padding-bottom: 64px;
+  }
+
+  .footer__divider {
+    border: 0;
+    height: var(--bar-horizontal);
+    background: var(--accent);
+    margin: 0 0 48px;
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15px;
+  }
+
+  .footer__col--meta {
+    text-align: right;
+    color: var(--text-muted);
+  }
+
+  .footer__link {
+    text-decoration: none;
+  }
+
+  .footer__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  @media (max-width: 640px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .footer__col--meta {
+      text-align: left;
+    }
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+interface Props {
+  number: string;
+  primary: string;
+  secondary?: string;
+}
+
+const { number, primary, secondary } = Astro.props;
+---
+
+<section class="impact">
+  <div class="container impact__inner">
+    <span class="impact__label">Impacto</span>
+    <p class="impact__number">{number}</p>
+    <p class="impact__primary">{primary}</p>
+    {secondary && <p class="impact__secondary">{secondary}</p>}
+  </div>
+</section>
+
+<style>
+  .impact {
+    background: var(--accent);
+    color: var(--bg);
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding-block: clamp(120px, 16vw, 160px);
+    margin-block: var(--gap-section);
+  }
+
+  .impact__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: var(--container-max);
+  }
+
+  .impact__label {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bg);
+  }
+
+  .impact__number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-impact-number);
+    line-height: 0.95;
+    color: var(--bg);
+    margin: 0;
+  }
+
+  .impact__primary {
+    font-family: var(--font-body);
+    font-size: 20px;
+    line-height: 1.4;
+    max-width: var(--content-max);
+    color: var(--bg);
+  }
+
+  .impact__secondary {
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: var(--content-max);
+    color: rgba(250, 250, 247, 0.85);
+  }
+</style>
