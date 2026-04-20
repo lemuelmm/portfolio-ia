@@ -1,0 +1,410 @@
+---
+import Base from '../../layouts/Base.astro';
+import DividerBar from '../../components/DividerBar.astro';
+import HeroBar from '../../components/HeroBar.astro';
+import ImageSlot from '../../components/ImageSlot.astro';
+import ImpactBlock from '../../components/ImpactBlock.astro';
+
+const loginFailures = [
+  {
+    title: 'E-mails compartilhados',
+    description:
+      'Vários clientes usando o mesmo endereço, o que invalidava qualquer metrificação de comunicação.',
+  },
+  {
+    title: 'E-mails desatualizados',
+    description: 'Sem forma de saber se o canal ainda era válido.',
+  },
+  {
+    title: 'Sem chave única confiável',
+    description: 'A base não estava normalizada por pessoa.',
+  },
+];
+
+const rollout = [
+  {
+    title: 'Faseamento',
+    description: 'Lançamento gradual para não impactar clientes com login ativo.',
+  },
+  {
+    title: 'Construção das perguntas',
+    description:
+      'Perguntas que só o cliente saberia responder, com caminhos de ajuda para quando erra, contagem de tentativas e bloqueio após múltiplas respostas erradas.',
+  },
+  {
+    title: 'Métrica por fase',
+    description:
+      'Acompanhamento de taxa de acerto, contatos de ajuda e recuperação de senha antes de avançar cada fase.',
+  },
+];
+
+const designHighlights = [
+  {
+    title: 'Contexto junto do número',
+    description:
+      '“Acima do recomendado” ao lado de “1800 Kg de CO2”, para que o dado signifique algo.',
+  },
+  {
+    title: 'Três caminhos de ação',
+    description: 'Reduzir uso, compensar via ONG, apoiar iniciativas.',
+  },
+  {
+    title: 'Vínculo com o produto',
+    description: 'Seguro auto por Km entra como opção real de redução, não como vitrine.',
+  },
+];
+
+const press = [
+  {
+    outlet: 'Terra',
+    title: 'Calculadora permite a segurados medir quantidade de carbono emitida por carros',
+    href: 'https://www.terra.com.br/economia/calculadora-permite-a-segurados-medir-quantidade-de-carbono-emitida-por-carros,dc5429be9ae8262c8001528862c65f69n672ypsn.html',
+  },
+  {
+    outlet: 'Revista Cobertura',
+    title: 'Youse lança calculadora que mede emissão de CO2 vinculada ao seguro auto',
+    href: 'https://www.revistacobertura.com.br/noticias/auto-servicos/youse-lanca-calculadora-que-mede-emissao-de-co2-vinculada-ao-seguro-auto-pay-per-use/',
+  },
+  {
+    outlet: 'Youse ESG',
+    title: 'Iniciativas de conscientização e redução de impacto ambiental',
+    href: 'https://www.youse.com.br/blog/imprensa/releases/esg/youse-reforca-iniciativas-de-conscientizacao-e-reducao-de-impacto-ambiental',
+  },
+];
+---
+
+<Base title="Youse Seguros — Lemuel Monteiro">
+  <div class="container back">
+    <a href="/" class="back__link">← Trabalhos</a>
+  </div>
+
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">YOUSE SEGUROS</h1>
+      <p class="hero__subtitle">Product Designer</p>
+      <p class="hero__meta">Jun. 2022 a Mar. 2024 · via BOLD Brasil</p>
+    </div>
+    <div class="hero__slot">
+      <ImageSlot ratio="16/9" label="Hero do case Youse Seguros — imagem a incluir" />
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Contexto</p>
+    <p class="section__body">
+      Atuei na Youse Seguros, seguradora 100% digital brasileira, por meio da BOLD Brasil.
+      Trabalhei em dois produtos principais: autenticação no app e site, e o produto de seguro
+      auto por quilometragem rodada, que abrigava a Calculadora de CO2.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container part">
+    <p class="label">Parte 1</p>
+    <h2 class="part__title">Login com CPF e perguntas de segurança</h2>
+
+    <div class="part__block">
+      <p class="label">O problema</p>
+      <p class="section__body">
+        A base de acesso da Youse estava ancorada em e-mail e senha, e o modelo tinha três
+        falhas estruturais:
+      </p>
+      <ul class="list-block">
+        {loginFailures.map((item) => (
+          <li class="list-block__item">
+            <h3 class="list-block__title">{item.title}</h3>
+            <p class="list-block__description">{item.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="part__block">
+      <p class="label">A decisão</p>
+      <p class="section__body">
+        CPF foi escolhido como chave primária porque é único por pessoa e permite normalizar a
+        base. Com CPF no lugar, perguntas de segurança entraram como alternativa à senha em casos
+        de recuperação e primeiro acesso.
+      </p>
+    </div>
+
+    <div class="part__block">
+      <p class="label">O rollout</p>
+      <p class="section__body">Três cuidados centrais:</p>
+      <ol class="list-block">
+        {rollout.map((item) => (
+          <li class="list-block__item">
+            <h3 class="list-block__title">{item.title}</h3>
+            <p class="list-block__description">{item.description}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <ImpactBlock
+    number="60%"
+    primary="Redução em contatos de suporte relacionados a login e acesso."
+    secondary="Base de clientes passou a ser normalizada por CPF, o que destravou metrificação de comunicação e manutenção mais precisa do canal de contato."
+  />
+
+  <section class="container part">
+    <p class="label">Parte 2</p>
+    <h2 class="part__title">Calculadora de CO2</h2>
+
+    <div class="part__block">
+      <p class="label">O problema / oportunidade</p>
+      <p class="section__body">
+        O seguro auto da Youse opera no modelo “paga o quanto usa”, cobrando pelo Km rodado. Os
+        dados de Km já estavam sendo coletados pelo app, o que abria uma oportunidade inédita:
+        traduzir isso em impacto ambiental e educação do cliente, sem pedir nenhum dado novo.
+      </p>
+    </div>
+
+    <div class="part__block">
+      <p class="label">A solução</p>
+      <p class="section__body">
+        Desenhei uma calculadora que mostra quanto CO2 o cliente emitiu no mês a partir do Km
+        rodado e do tipo de combustível, com dicas acionáveis para reduzir a pegada: transporte
+        alternativo, carona solidária, apoio a ONGs que compensam emissão.
+      </p>
+      <p class="section__body">Três destaques de design:</p>
+      <ul class="list-block">
+        {designHighlights.map((item) => (
+          <li class="list-block__item">
+            <h3 class="list-block__title">{item.title}</h3>
+            <p class="list-block__description">{item.description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="part__slots">
+      <ImageSlot ratio="4/3" label="Tela de cálculo da Calculadora de CO2 — imagem a incluir" />
+      <ImageSlot ratio="4/3" label="Tela de resultado da Calculadora de CO2 — imagem a incluir" />
+    </div>
+  </section>
+
+  <ImpactBlock
+    number=">90%"
+    primary="Satisfação entre usuários que concluíram o onboarding e chegaram à tela principal da calculadora."
+    secondary="A calculadora saiu do escopo do seguro por Km e virou feature independente, disponível para qualquer cliente Youse com carro."
+  />
+
+  <section class="container section">
+    <p class="label">Também atuei em</p>
+    <div class="list-block__item">
+      <h3 class="list-block__title">Endosso de contrato</h3>
+      <p class="list-block__description">
+        Edição de dados cadastrais e coberturas (Km de guincho, beneficiários de seguro de vida)
+        diretamente no app, reduzindo dependência de canais de atendimento.
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Imprensa</p>
+    <ul class="press">
+      {press.map((item) => (
+        <li class="press__item">
+          <a href={item.href} target="_blank" rel="noopener" class="press__link">
+            <span class="press__outlet">{item.outlet}</span>
+            <span class="press__title">{item.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section next">
+    <p class="label">Próximo case</p>
+    <a href="#" class="next__link">
+      <span>PAGURU DIGITAL SOLUTIONS</span>
+      <span aria-hidden="true"> →</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .back {
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .back__link {
+    font-size: var(--fs-small);
+    color: var(--accent);
+  }
+
+  .hero {
+    position: relative;
+    padding-block: clamp(48px, 6vw, 80px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text);
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .part {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .part__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    max-width: var(--content-max);
+    margin-top: -16px;
+  }
+
+  .part__block {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .part__slots {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .list-block {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .list-block__item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: var(--content-max);
+  }
+
+  .list-block__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    line-height: 1.2;
+  }
+
+  .list-block__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  .press {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: var(--content-max);
+  }
+
+  .press__link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px 0;
+  }
+
+  .press__outlet {
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .press__title {
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--text);
+    transition: color 150ms ease-out, text-decoration-color 150ms ease-out;
+  }
+
+  .press__link:hover .press__title {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+  }
+
+  .next__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    text-decoration: none;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .next__link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--accent);
+  }
+</style>
