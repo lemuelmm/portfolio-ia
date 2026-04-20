@@ -1,0 +1,301 @@
+---
+import Base from '../layouts/Base.astro';
+import DividerBar from '../components/DividerBar.astro';
+
+const skills = [
+  {
+    number: '01',
+    title: 'Discovery baseado em dados',
+    description: 'Analytics + pesquisa qualitativa.',
+  },
+  {
+    number: '02',
+    title: 'Design de interfaces para operação',
+    description: 'Power users, densidade de informação, navegação por teclado.',
+  },
+  {
+    number: '03',
+    title: 'Produtos com impacto socioambiental',
+    description: 'Sustentabilidade como prática, não como slogan.',
+  },
+  {
+    number: '04',
+    title: 'Prototipação iterativa em Figma + IA',
+    description:
+      'Uso de IA como ferramenta de exploração e rascunho antes do refino no Figma.',
+  },
+];
+
+const habits = [
+  {
+    title: 'Confirmação antes do pixel',
+    description:
+      'Uso matriz CSD para separar certezas, suposições e dúvidas antes de abrir o Figma.',
+  },
+  {
+    title: 'Dados primeiro',
+    description:
+      'Leio analytics de uso antes de propor qualquer mudança. Se os dados não respondem, recorto pesquisa qualitativa.',
+  },
+  {
+    title: 'IA como ferramenta de exploração',
+    description:
+      'Uso Claude e Google Stitch para rascunhar artefatos e explorar componentes antes de refinar no Figma.',
+  },
+  {
+    title: 'Construção iterativa',
+    description:
+      'Protótipos evoluem em ciclos curtos de validação, não em entrega única.',
+  },
+];
+
+const certifications = [
+  'Google UX Design (Coursera)',
+  'Design for the 21st Century com Don Norman (IxDF)',
+  'EFSET B2 (inglês Upper Intermediate)',
+];
+---
+
+<Base title="Sobre — Lemuel Monteiro">
+  <section class="container hero">
+    <h1 class="hero__title">SOBRE</h1>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Bio</p>
+    <div class="bio">
+      <p class="section__body">
+        Sou Lemuel Monteiro, Product Designer brasileiro. Hoje atuo na Starian (antiga Softplan),
+        no produto Sienge, desenhando interfaces de contas a pagar para construção civil, com foco
+        em fluxos densos para power users.
+      </p>
+      <p class="section__body">
+        Antes, trabalhei na Youse Seguros via BOLD Brasil em projetos de autenticação (migração
+        de login para CPF com perguntas de segurança) e no produto de Calculadora de CO2, que
+        virou solução independente de consciência ambiental.
+      </p>
+      <p class="section__body">
+        Desde a graduação em Sistemas de Informação, tenho uma trilha consistente em projetos com
+        impacto socioambiental: o Geopark Araripe (UNESCO), onde liderei a digitalização dos
+        processos de avaliação ambiental, e a GIR, onde contribuí voluntariamente com a
+        plataforma de gestão de resíduos.
+      </p>
+      <p class="section__body">
+        Minha prática combina rigor de decisão (pesquisa com dados, matriz CSD, validação antes
+        do pixel) com atenção ao que o produto deixa no mundo.
+      </p>
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Competências</p>
+    <ol class="skills">
+      {skills.map((skill) => (
+        <li class="skill">
+          <span class="skill__number" aria-hidden="true">{skill.number}</span>
+          <div class="skill__content">
+            <h3 class="skill__title">{skill.title}</h3>
+            <p class="skill__description">{skill.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Como trabalho</p>
+    <p class="section__body">
+      Começo com confirmação: não desenho enquanto não tenho clareza sobre o problema. Na prática,
+      quatro hábitos:
+    </p>
+    <ul class="habits">
+      {habits.map((habit) => (
+        <li class="habit">
+          <h3 class="habit__title">{habit.title}</h3>
+          <p class="habit__description">{habit.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Educação</p>
+    <div class="education">
+      <div class="education__block">
+        <h3 class="education__heading">Formação</h3>
+        <p class="section__body">
+          Bacharelado em Sistemas de Informação · UniFAP · 2017 a 2021
+        </p>
+      </div>
+      <div class="education__block">
+        <h3 class="education__heading">Certificações</h3>
+        <ul class="certifications">
+          {certifications.map((cert) => (
+            <li class="certification">{cert}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(48px, 6vw, 80px) clamp(32px, 4vw, 48px);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .bio {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .skills {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 8px;
+  }
+
+  .skill {
+    display: grid;
+    grid-template-columns: minmax(auto, 80px) 1fr;
+    gap: 24px;
+    align-items: baseline;
+  }
+
+  .skill__number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    color: var(--accent);
+  }
+
+  .skill__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: var(--content-max);
+  }
+
+  .skill__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    line-height: 1.2;
+  }
+
+  .skill__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  .habits {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 8px;
+  }
+
+  .habit {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: var(--content-max);
+  }
+
+  .habit__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    line-height: 1.2;
+  }
+
+  .habit__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  .education {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .education__block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: var(--content-max);
+  }
+
+  .education__heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    line-height: 1.2;
+  }
+
+  .certifications {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .certification {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .certification::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .skill {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>
