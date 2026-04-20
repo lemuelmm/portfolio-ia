@@ -1,0 +1,185 @@
+---
+import Base from '../../layouts/Base.astro';
+import DividerBar from '../../components/DividerBar.astro';
+import HeroBar from '../../components/HeroBar.astro';
+import ImageSlot from '../../components/ImageSlot.astro';
+
+const tools = [
+  'Discovery com analytics (Mixpanel, Amplitude) antes do Figma',
+  'Pesquisa qualitativa com usuários e parceiros de canal',
+  'Material UI (MUI X Data Grid) para padrões de tabela e edição em lote',
+  'Google Stitch como ferramenta de exploração de componentes',
+  'Benchmarking explícito (Expensify, Linear, Superhuman, QuickBooks)',
+];
+---
+
+<Base title="Starian · Sienge — Lemuel Monteiro">
+  <div class="container back">
+    <a href="/" class="back__link">← Trabalhos</a>
+  </div>
+
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">STARIAN · SIENGE</h1>
+      <p class="hero__subtitle">Designer de Produtos</p>
+      <p class="hero__meta">Mai. 2025 a Atual · Remoto</p>
+    </div>
+    <div class="hero__slot">
+      <ImageSlot ratio="16/9" label="Hero do case Starian · Sienge — imagem a incluir" />
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Contexto</p>
+    <p class="section__body">
+      Atuo no produto Sienge (SaaS para construção civil com mais de 25 anos de mercado), no time
+      KillBills / Contas a Pagar da Jornada Financeira. Entrei pela Softplan em maio de 2025 e
+      continuei na Starian após a cisão em agosto do mesmo ano.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Discovery em curso</p>
+    <p class="section__body">
+      Hoje estou em discovery de uma evolução da criação de títulos com IA, com foco em fluxo em
+      lote: upload de múltiplos documentos, extração automática de campos e revisão sequencial.
+      Trabalho com interfaces densas para power users, navegação por teclado como princípio e uso
+      matriz CSD para estruturar certezas, suposições e dúvidas antes de abrir o Figma.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Temas e ferramentas ativos</p>
+    <ul class="tools">
+      {tools.map((tool) => (
+        <li class="tools__item">{tool}</li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section next">
+    <p class="label">Próximo case</p>
+    <a href="/work/geopark" class="next__link">
+      <span>GEOPARK ARARIPE</span>
+      <span aria-hidden="true"> →</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .back {
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .back__link {
+    font-size: var(--fs-small);
+    color: var(--accent);
+  }
+
+  .hero {
+    position: relative;
+    padding-block: clamp(48px, 6vw, 80px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text);
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .tools {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: var(--content-max);
+  }
+
+  .tools__item {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .tools__item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .next__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    text-decoration: none;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .next__link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--accent);
+  }
+</style>
