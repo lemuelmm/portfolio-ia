@@ -10,7 +10,14 @@ const items = [
   <div class="container nav__inner">
     <a href="/" class="nav__brand" aria-label="Lemuel Monteiro — Home">
       <span class="nav__brand-full">LEMUEL MONTEIRO</span>
-      <span class="nav__brand-mark" aria-hidden="true">LM</span>
+      <img
+        src="/favicon.svg"
+        alt=""
+        aria-hidden="true"
+        width="32"
+        height="32"
+        class="nav__brand-mark"
+      />
     </a>
 
     <ul class="nav__menu">
@@ -54,14 +61,6 @@ const items = [
     display: none;
     width: 32px;
     height: 32px;
-    background: var(--accent);
-    color: var(--bg);
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 14px;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: -0.02em;
   }
 
   .nav__menu {
@@ -88,7 +87,7 @@ const items = [
       display: none;
     }
     .nav__brand-mark {
-      display: inline-flex;
+      display: inline-block;
     }
     .nav__item {
       font-size: 14px;
