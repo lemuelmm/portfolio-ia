@@ -1,0 +1,100 @@
+---
+import Base from '../layouts/Base.astro';
+import DividerBar from '../components/DividerBar.astro';
+
+const interests = [
+  'Fotografia',
+  'Cozinha',
+  'Jiu-jitsu',
+  'Trilha',
+  'Animal',
+  'Planta',
+  'Agrofloresta',
+];
+---
+
+<Base title="Fora do trabalho — Lemuel Monteiro">
+  <section class="container hero">
+    <h1 class="hero__title">FORA DO TRABALHO</h1>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="quote">
+      Tentando descobrir meu lugar em um mundo novo todo dia, com curiosidade e resiliência.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Interesses</p>
+    <ul class="interests">
+      {interests.map((interest) => (
+        <li class="interest">{interest}</li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(48px, 6vw, 80px) clamp(32px, 4vw, 48px);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .quote {
+    font-size: var(--fs-lead);
+    line-height: 1.45;
+    max-width: var(--content-max);
+  }
+
+  .interests {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 48px;
+    max-width: var(--content-max);
+    margin-top: 8px;
+  }
+
+  .interest {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    line-height: 1.2;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .interest::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 10px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .interests {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+</style>

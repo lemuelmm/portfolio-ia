@@ -6,10 +6,10 @@ import HeroBar from '../components/HeroBar.astro';
 
 const cases = [
   {
-    title: 'SIENGE · STARIAN',
+    title: 'STARIAN · SIENGE',
     description: 'Discovery de IA para criação de títulos em lote.',
     meta: '2025 a atual',
-    href: '#',
+    href: '/work/starian',
   },
   {
     title: 'GEOPARK ARARIPE',
@@ -27,7 +27,7 @@ const cases = [
     title: 'PAGURU DIGITAL SOLUTIONS',
     description: 'Projetos em educação, saúde e jurídico.',
     meta: '2020 a 2022',
-    href: '#',
+    href: '/work/paguru',
   },
 ];
 ---
@@ -64,7 +64,7 @@ const cases = [
     <DividerBar />
   </div>
 
-  <section class="container works">
+  <section id="trabalhos" class="container works">
     <p class="label works__label">Trabalhos</p>
     <ul class="works__list">
       {cases.map((c, i) => (
