@@ -21,10 +21,21 @@ const { title, description = 'Product Designer baseado em Juazeiro do Norte, Cea
     <title>{title}</title>
   </head>
   <body>
+    <div class="topstripe" aria-hidden="true"></div>
     <Nav />
     <main>
       <slot />
     </main>
     <Footer />
+
+    <style>
+      .topstripe {
+        position: sticky;
+        top: 0;
+        height: 4px;
+        background: var(--accent);
+        z-index: 10;
+      }
+    </style>
   </body>
 </html>
