@@ -1,0 +1,206 @@
+---
+import Base from '../../layouts/Base.astro';
+import DividerBar from '../../components/DividerBar.astro';
+import HeroBar from '../../components/HeroBar.astro';
+import ImageSlot from '../../components/ImageSlot.astro';
+
+const projects = [
+  {
+    number: '01',
+    title: 'Sistema para escolas de dança',
+    description:
+      'Pequenas e médias escolas dependiam de ferramentas desconectadas para gerenciar alunos, pagamentos e turmas, o que dificultava a operação e a transferência de conhecimento entre pessoas. Desenhei um aplicativo integrado (matrículas, frequência, pagamentos, emissão de recibos, interação entre professores, alunos e gestores) acompanhado de um painel web para tarefas administrativas, com interface baseada em Material Design. O resultado reduziu o tempo de gerenciamento operacional e viabilizou um modelo de assinatura acessível para esse segmento.',
+  },
+  {
+    number: '02',
+    title: 'PlantON (app de gestão de plantões)',
+    description:
+      'Gestores de hospitais dependiam de grupos de WhatsApp para encontrar médicos disponíveis, o que tornava o preenchimento de vagas lento e desorganizado. Desenhei um app que conecta gestores e médicos plantonistas, com publicação de plantões por critérios e integração com redes sociais. O resultado eliminou a dependência do WhatsApp, reduziu o tempo de preenchimento de vagas e melhorou o alinhamento entre as duas pontas.',
+  },
+  {
+    number: '03',
+    title: 'ExtraJud (consulta jurídica para cartórios)',
+    description:
+      'Atuei na definição do problema, do público-alvo (titulares, colaboradores e concurseiros) e dos fluxos do app, com interface baseada em Material Design / Material You. O projeto buscava acelerar consultas jurídicas da operação de cartórios por meio de tecnologia.',
+  },
+];
+---
+
+<Base title="Paguru Digital Solutions — Lemuel Monteiro">
+  <div class="container back">
+    <a href="/" class="back__link">← Trabalhos</a>
+  </div>
+
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">PAGURU DIGITAL SOLUTIONS</h1>
+      <p class="hero__subtitle">UX/UI → Product Designer</p>
+      <p class="hero__meta">Set. 2020 a Fev. 2022 · Juazeiro do Norte, CE</p>
+    </div>
+    <div class="hero__slot">
+      <ImageSlot ratio="16/9" label="Hero do case Paguru Digital Solutions — imagem a incluir" />
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Contexto</p>
+    <p class="section__body">
+      Atuei em projetos para clientes externos em diversos setores: educação, saúde, jurídico e
+      serviços. Papel com foco em descoberta de produto, validação de problemas, definição de
+      escopo, fluxos e prototipação em baixa e alta fidelidade.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Três projetos de destaque</p>
+    <div class="projects">
+      {projects.map((project) => (
+        <article class="project">
+          <div class="project__head">
+            <span class="project__number" aria-hidden="true">{project.number}</span>
+            <h3 class="project__title">{project.title}</h3>
+          </div>
+          <p class="project__description">{project.description}</p>
+          <ImageSlot ratio="4/3" label={`Tela de ${project.title} — imagem a incluir`} />
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section next">
+    <p class="label">Próximo case</p>
+    <a href="/work/starian" class="next__link">
+      <span>STARIAN · SIENGE</span>
+      <span aria-hidden="true"> →</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .back {
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .back__link {
+    font-size: var(--fs-small);
+    color: var(--accent);
+  }
+
+  .hero {
+    position: relative;
+    padding-block: clamp(48px, 6vw, 80px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text);
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .project {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .project__head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .project__number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    color: var(--accent);
+  }
+
+  .project__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    line-height: 1.2;
+  }
+
+  .project__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .next__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    text-decoration: none;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .next__link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--accent);
+  }
+</style>
