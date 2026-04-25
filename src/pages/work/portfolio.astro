@@ -1,0 +1,454 @@
+---
+import Base from '../../layouts/Base.astro';
+import DividerBar from '../../components/DividerBar.astro';
+import HeroBar from '../../components/HeroBar.astro';
+import ImageSlot from '../../components/ImageSlot.astro';
+
+import contextRaw from '../../../CONTEXT.md?raw';
+import referencesRaw from '../../../REFERENCES.md?raw';
+import claudeRaw from '../../../CLAUDE.md?raw';
+import planejamentoRaw from '../../../portfolio-planejamento.md?raw';
+import arquiteturaRaw from '../../../arquitetura-site.md?raw';
+import identidadeRaw from '../../../identidade-visual.md?raw';
+import promptRaw from '../../../prompt-prototipagem.md?raw';
+
+const anonymize = (text: string) => text
+  .replace(/Lemuel Monteiro/g, '[SEU NOME]')
+  .replace(/lemuel\.webflow\.io/g, '[portfolio-anterior]')
+  .replace(/lemuelmonteirom@gmail\.com/g, '[seu-email@dominio.com]')
+  .replace(/linkedin\.com\/in\/lemuelmonteiro/g, 'linkedin.com/in/[seu-usuario]')
+  .replace(/lemuelmonteiro/gi, '[seu-usuario]')
+  .replace(/lemueldesign\.com/g, '[seu-dominio].com');
+
+const kitFiles = [
+  {
+    name: 'CONTEXT.md',
+    description: 'Objetivo do projeto, o que é um bom resultado e o que evitar.',
+    content: anonymize(contextRaw),
+  },
+  {
+    name: 'REFERENCES.md',
+    description: 'Referências visuais e notas sobre equilíbrio entre estética e viabilidade técnica.',
+    content: anonymize(referencesRaw),
+  },
+  {
+    name: 'CLAUDE.md',
+    description: 'Instruções para o assistente de IA: identidade do projeto e regras de colaboração.',
+    content: anonymize(claudeRaw),
+  },
+  {
+    name: 'portfolio-planejamento.md',
+    description: 'Decisões editoriais: público-alvo, seleção de cases, métricas e ativos.',
+    content: anonymize(planejamentoRaw),
+  },
+  {
+    name: 'arquitetura-site.md',
+    description: 'Mapa do site, decisões de navegação e conteúdo por página.',
+    content: anonymize(arquiteturaRaw),
+  },
+  {
+    name: 'identidade-visual.md',
+    description: 'Sistema de design: tipografia, paleta, espaçamento, wireframes e componentes.',
+    content: anonymize(identidadeRaw),
+  },
+  {
+    name: 'prompt-prototipagem.md',
+    description: 'Brief completo para prototipagem no Lovable, Stitch ou similar.',
+    content: anonymize(promptRaw),
+  },
+];
+
+
+const results = [
+  { number: '13', label: 'commits do início ao fim', detail: 'do scaffold ao deploy' },
+  { number: '7', label: 'páginas publicadas', detail: '4 cases, sobre, fora do trabalho, home' },
+  { number: '1', label: 'design system do zero', detail: 'sem CSS framework' },
+  { number: '0', label: 'imagens no primeiro deploy', detail: 'conteúdo antes de visual' },
+];
+---
+
+<Base title="Como este portfólio foi construído · Lemuel Monteiro">
+  <div class="container back">
+    <a href="/" class="back__link">← Trabalhos</a>
+  </div>
+
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">ESTE PORTFÓLIO</h1>
+      <p class="hero__subtitle">Designer + Desenvolvedor</p>
+      <p class="hero__meta">2025 · Juazeiro do Norte, CE</p>
+    </div>
+    <div class="hero__slot">
+      <ImageSlot ratio="16/9" label="Screenshot do portfólio, imagem a incluir" />
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Contexto</p>
+    <p class="section__body">
+      O portfólio é o primeiro filtro em qualquer conversa de contratação. Usar Behance, Notion ou
+      um template genérico resolve o imediato, mas cria um paradoxo: o site precisa comunicar como
+      você pensa e, se o site foi feito sem pensar, o que ele comunica?
+    </p>
+    <p class="section__body">
+      A decisão de construir do zero foi parte do posicionamento: designer que entende produto
+      precisa ser capaz de entregar produto.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Problema de posicionamento</p>
+    <p class="section__body">
+      Cinco anos de experiência em empresas e setores muito diferentes: consultoria, insurtech,
+      construção civil. O risco era aparecer como generalista sem foco. O desafio era criar uma
+      narrativa coesa sem fingir uma especialização que não existe.
+    </p>
+    <p class="section__body">
+      A solução foi selecionar e ordenar. Casos em ordem cronológica reversa, do mais recente para
+      o mais antigo, cada um conectado ao próximo, criando uma cadeia de leitura.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Conteúdo primeiro</p>
+    <p class="section__body">
+      O processo começou pelo texto, não pelo design. O ponto de partida foi o portfólio anterior
+      (Webflow) e o LinkedIn: dois registros do mesmo trabalho, escritos em momentos diferentes e
+      para públicos diferentes.
+    </p>
+    <p class="section__body">
+      A comparação revelou divergências de tom e lacunas no histórico. O portfólio Webflow tinha
+      uma linguagem mais aspiracional; o LinkedIn era mais técnico e fragmentado. O trabalho foi
+      reconciliar os dois: ajustar o histórico ano a ano, uniformizar o tom e definir o papel de
+      cada texto no posicionamento profissional.
+    </p>
+    <p class="section__body">
+      A pergunta que guiou esse estágio: o que esse texto precisa fazer? Para cada seção, uma
+      resposta diferente. A tagline precisa situar. A bio curta precisa qualificar. Cada case
+      precisa mostrar raciocínio, não apenas resultado.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Referências</p>
+    <p class="section__body">
+      Com o conteúdo estabilizado, fui atrás de exemplos para entender como designers que admiro
+      apresentam o próprio trabalho.
+    </p>
+    <p class="section__body">
+      Quatro portfólios serviram de referência: laurenlangdesign.com, kysondana.com,
+      thatedchao.com e tparkes.com. Todos minimalistas, todos com tipografia forte como elemento
+      principal de hierarquia. A estética brutalista apareceu como ponto em comum: sem decoração,
+      sem gradiente, sem animação pela animação. O layout serve o conteúdo.
+    </p>
+    <p class="section__body">
+      O que ficou de fora das referências também foi útil. Sites com motion pesado, paletas
+      múltiplas ou layouts experimentais foram descartados: bonitos no protótipo, caros de manter
+      em código.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Tipografia, estilo e protótipo</p>
+    <p class="section__body">
+      Com as referências mapeadas, entrei na fase de exploração visual. O Google Stitch entrou
+      para experimentar padrões de componente: variações de tipo, escala, espaçamento. O Lovable
+      para testar estruturas de layout e navegação.
+    </p>
+    <p class="section__body">
+      Essa fase foi iterativa. Nenhuma decisão foi tomada de uma vez. A paleta foi reduzida ao
+      mínimo: fundo off-white, preto para texto, cinza para hierarquia secundária e verde-escuro
+      como único acento. A tipografia ficou em dois pesos de duas famílias: Space Grotesk para
+      títulos, Inter para corpo. Escala fluida com clamp() para funcionar em qualquer tela.
+    </p>
+    <p class="section__body">
+      O protótipo no Lovable validou a estrutura de navegação antes de qualquer linha de código.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Claude Code</p>
+    <p class="section__body">
+      Com o design system definido e a estrutura validada, a construção aconteceu inteiramente no
+      Claude Code. A decisão de migrar do Lovable para código próprio foi estratégica: controle
+      total sobre a linguagem visual, um design system próprio e a possibilidade de iterar texto
+      e código no mesmo ambiente.
+    </p>
+    <p class="section__body">
+      A fundação veio primeiro: scaffold do Astro, organização de pastas, tokens de cor, escala
+      tipográfica, fontes auto-hospedadas. Nenhuma página antes de ter a base pronta.
+    </p>
+    <p class="section__body">
+      Depois, a arquitetura de componentes: Base, Nav, Footer, CaseCard, ImpactBlock, DividerBar,
+      HeroBar, ImageSlot. O ImageSlot como placeholder permitiu publicar o conteúdo antes de ter
+      as imagens prontas, sem deixar o layout quebrado.
+    </p>
+    <p class="section__body">
+      O texto de cada case não foi inserido de uma vez. Cada página passou por rodadas de ajuste
+      de tom, extensão e o que incluir ou cortar.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Resultado</p>
+    <div class="results">
+      {results.map((r) => (
+        <div class="result">
+          <span class="result__number">{r.number}</span>
+          <div class="result__text">
+            <span class="result__label">{r.label}</span>
+            <span class="result__detail">{r.detail}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Os arquivos</p>
+    <p class="section__body">
+      Esses são os documentos que guiaram a construção deste portfólio, com dados pessoais
+      removidos. Copie, adapte ou use como referência para o seu processo.
+    </p>
+    <div class="kit">
+      {kitFiles.map((file) => (
+        <details class="kit__file">
+          <summary class="kit__summary">
+            <span class="kit__name">{file.name}</span>
+            <span class="kit__desc">{file.description}</span>
+          </summary>
+          <pre class="kit__content"><code>{file.content}</code></pre>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section next">
+    <p class="label">Próximo case</p>
+    <a href="/work/starian" class="next__link">
+      <span>STARIAN · SIENGE</span>
+      <span aria-hidden="true"> →</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .back {
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .back__link {
+    font-size: var(--fs-small);
+    color: var(--accent);
+  }
+
+  .hero {
+    position: relative;
+    padding-block: clamp(48px, 6vw, 80px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text);
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: var(--content-max);
+  }
+
+  .result {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .result__number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-impact-number);
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .result__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .result__label {
+    font-size: var(--fs-body);
+    line-height: 1.4;
+  }
+
+  .result__detail {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .results {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .kit {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--content-max);
+  }
+
+  .kit__file {
+    border-top: 1px solid var(--divider);
+  }
+
+  .kit__file:last-child {
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .kit__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .kit__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .kit__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-small);
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  .kit__desc {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .kit__file[open] .kit__summary {
+    padding-bottom: 16px;
+  }
+
+  .kit__content {
+    font-family: ui-monospace, 'Cascadia Code', 'Fira Mono', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    background: #F0F0EC;
+    padding: 24px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+
+  .kit__content code {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .next__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    text-decoration: none;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .next__link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--accent);
+  }
+</style>
