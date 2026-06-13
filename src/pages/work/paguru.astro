@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import DividerBar from '../../components/DividerBar.astro';
 import HeroBar from '../../components/HeroBar.astro';
-import ImageSlot from '../../components/ImageSlot.astro';
 
 const projects = [
   {
@@ -39,7 +38,7 @@ const projects = [
       <p class="hero__meta">Set. 2020 a Fev. 2022 · Juazeiro do Norte, CE</p>
     </div>
     <div class="hero__slot">
-      <ImageSlot ratio="16/9" label="Hero do case Paguru Digital Solutions — imagem a incluir" />
+      <img src="/paguru/ludus.webp" alt="Visão geral das telas do Ludus — app mobile e painel web" class="hero__img" loading="eager" />
     </div>
   </section>
 
@@ -70,7 +69,12 @@ const projects = [
             <h3 class="project__title">{project.title}</h3>
           </div>
           <p class="project__description">{project.description}</p>
-          <ImageSlot ratio="4/3" label={`Tela de ${project.title} — imagem a incluir`} />
+          {project.number === '01' && (
+            <img src="/paguru/ludus.webp" alt="Telas do sistema Ludus para escolas de dança" class="project__img" loading="lazy" />
+          )}
+          {project.number === '02' && (
+            <img src="/paguru/planton-extrajud.png" alt="Telas dos apps PlantON e ExtraJud" class="project__img" loading="lazy" />
+          )}
         </article>
       ))}
     </div>
@@ -181,6 +185,13 @@ const projects = [
     font-size: var(--fs-body);
     line-height: 1.6;
     max-width: var(--content-max);
+  }
+
+  .hero__img,
+  .project__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
   }
 
   .next__link {
