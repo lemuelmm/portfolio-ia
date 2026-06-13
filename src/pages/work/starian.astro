@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import DividerBar from '../../components/DividerBar.astro';
 import HeroBar from '../../components/HeroBar.astro';
-import ImageSlot from '../../components/ImageSlot.astro';
 
 const tools = [
   'Discovery com analytics (Mixpanel, Amplitude) antes do Figma',
@@ -26,7 +25,15 @@ const tools = [
       <p class="hero__meta">Mai. 2025 a Atual · Remoto</p>
     </div>
     <div class="hero__slot">
-      <ImageSlot ratio="16/9" label="Hero do case Starian · Sienge — imagem a incluir" />
+      <div class="proto__wrapper">
+        <iframe
+          src="/sienge/titulos-ia.html"
+          title="Protótipo — Criação de títulos com IA no Sienge"
+          class="proto__frame"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <p class="proto__caption">Protótipo funcional criado com IA — interaja diretamente no frame</p>
     </div>
   </section>
 
@@ -160,6 +167,28 @@ const tools = [
     width: 8px;
     height: 2px;
     background: var(--accent);
+  }
+
+  .proto__wrapper {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: 1px solid var(--divider);
+    border-radius: 4px;
+    overflow: hidden;
+    background: #F7F7F7;
+  }
+
+  .proto__frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .proto__caption {
+    margin-top: 10px;
+    font-size: var(--fs-small);
+    color: var(--text-muted);
   }
 
   .next__link {

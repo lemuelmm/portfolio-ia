@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sienge — Criação de títulos com IA (Grid + Drawer)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Sora:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ Tokens Grua (DESIGN.md) ============ */
+:root{
+  --primary:#2274D8; --primary-light:#659FE7; --primary-dark:#18539A;
+  --secondary:#B6DBFF; --secondary-light:#DBEEFF; --secondary-dark:#80C2FF;
+  --grey-100:#F7F7F7; --grey-200:#EEEEEE; --grey-300:#DDDDDD; --grey-400:#CCCCCC;
+  --grey-500:#AAAAAA; --grey-600:#777777; --grey-800:#444444;
+  --error:#E32A26; --error-light:#EE7A77; --error-dark:#BE1C18;
+  --warning:#FB8C00; --warning-light:#FFBB66; --warning-dark:#D67800;
+  --success:#37A83C; --success-light:#93D296; --success-dark:#357E38;
+  --info:#2274D8;
+  --sp-xs:4px; --sp-sm:8px; --sp-md:16px; --sp-lg:24px; --sp-xl:32px; --sp-2xl:40px; --sp-3xl:48px;
+  --ia-grad:linear-gradient(135deg,#7B5CD6 0%,#2274D8 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Roboto,'Liberation Sans',sans-serif;font-size:14px;line-height:19px;color:var(--grey-800);background:var(--grey-100)}
+button{font-family:inherit;cursor:pointer}
+input,select{font-family:inherit}
+.h4-page-title{font-family:Sora;font-size:28px;font-weight:700;line-height:39px;color:var(--grey-800)}
+.h6-section-title{font-family:Sora;font-size:20px;font-weight:700;line-height:28px}
+.body-subtitle{font-size:14px;font-weight:700;line-height:19px}
+.caption{font-size:12px;font-weight:400;line-height:17px;color:var(--grey-600)}
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:#fff;border-bottom:1px solid var(--grey-200);display:flex;align-items:center;gap:var(--sp-lg);padding:0 var(--sp-lg);z-index:60}
+.topbar .logo{font-family:Sora;font-weight:700;font-size:16px;color:var(--grey-800);white-space:nowrap}
+.topbar .logo span{color:var(--primary)}
+.topbar .search{flex:1;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:var(--sp-sm);background:var(--grey-100);border:1px solid var(--grey-300);border-radius:4px;padding:6px 12px;color:var(--grey-500)}
+.topbar .icons{display:flex;gap:var(--sp-md);align-items:center;color:var(--grey-600)}
+.topbar .avatar{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.sidebar{position:fixed;top:56px;left:0;bottom:0;width:56px;background:#1F2937;display:flex;flex-direction:column;align-items:center;padding:var(--sp-sm) 0;gap:var(--sp-xs);z-index:50}
+.sidebar .s-item{width:40px;height:40px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#9CA3AF;font-size:18px}
+.sidebar .s-item.home{background:#D32F2F;color:#fff}
+.sidebar .s-item.active{background:rgba(255,255,255,.12);color:#fff}
+.sidebar .spacer{flex:1}
+.page{margin:56px 0 0 56px;padding:var(--sp-lg) var(--sp-xl) var(--sp-3xl)}
+.breadcrumbs{font-size:12px;line-height:17px;color:var(--grey-600);margin-bottom:var(--sp-sm)}
+.breadcrumbs a{color:var(--primary);text-decoration:none}
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-md);margin-bottom:var(--sp-sm)}
+.page-header .sub{display:flex;align-items:center;gap:var(--sp-sm);margin-top:var(--sp-xs)}
+.header-actions{display:flex;gap:var(--sp-md);align-items:center;padding-top:var(--sp-xs)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;padding:0 12px;border-radius:4px;font-size:13px;font-weight:500;letter-spacing:.4px;text-transform:uppercase;border:1px solid transparent;transition:background .15s;position:relative}
+.btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:default}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover:not(:disabled){background:var(--primary-dark)}
+.btn-secondary{background:#fff;color:var(--primary);border-color:var(--primary)}
+.btn-secondary:hover:not(:disabled){background:var(--secondary-light)}
+.btn-soft{background:var(--secondary-light);color:var(--primary)}
+.btn-soft:hover:not(:disabled){background:var(--secondary)}
+.btn-text{background:transparent;color:var(--primary);border:none}
+.btn-text:hover:not(:disabled){background:var(--secondary-light)}
+.btn-danger-text{background:transparent;color:var(--error);border:none}
+.btn-danger-text:hover:not(:disabled){background:#FDECEC}
+.btn .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn.loading .spinner{display:inline-block}
+.btn.loading .lbl{opacity:.7}
+@keyframes spin{to{transform:rotate(360deg)}}
+.icon-btn{width:32px;height:32px;border:none;background:transparent;border-radius:50%;color:var(--grey-600);display:inline-flex;align-items:center;justify-content:center;font-size:16px}
+.icon-btn:hover{background:var(--grey-200)}
+.icon-btn:focus-visible{outline:2px solid var(--primary);outline-offset:1px}
+.icon-btn:disabled{opacity:.35;cursor:default}
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap}
+.chip-pending{border:1px solid var(--warning);color:var(--warning-dark);background:#fff}
+.chip-done{background:var(--success);color:#fff}
+.ai-badge{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:4px;background:var(--ia-grad);color:#fff;font-size:10px;line-height:1;flex:none}
+.ai-badge.lg{width:18px;height:18px;font-size:11px}
+.lote-bar{display:flex;align-items:center;gap:var(--sp-md);background:#fff;border:1px solid var(--grey-200);border-radius:8px;padding:var(--sp-md);margin-bottom:var(--sp-md)}
+.lote-bar .track{flex:1;height:6px;background:var(--grey-200);border-radius:3px;overflow:hidden}
+.lote-bar .fill{height:100%;background:var(--success);border-radius:3px;width:0;transition:width .3s}
+.lote-bar.done-state{border-color:var(--success-light);background:#F1F9F1}
+.grid-card{background:#fff;border:1px solid var(--grey-200);border-radius:8px;overflow:hidden}
+.grid-toolbar{display:flex;align-items:center;gap:var(--sp-sm);padding:var(--sp-sm) var(--sp-md);border-bottom:1px solid var(--grey-200);flex-wrap:wrap}
+.grid-toolbar .tb{background:none;border:none;color:var(--primary);font-size:12px;font-weight:500;letter-spacing:.4px;padding:6px 8px;border-radius:4px;text-transform:uppercase}
+.grid-toolbar .tb:hover{background:var(--secondary-light)}
+.grid-toolbar .gsearch{margin-left:auto;display:flex;align-items:center;gap:6px;border:1px solid var(--grey-300);border-radius:4px;padding:4px 10px;color:var(--grey-500);font-size:13px}
+table.dg{width:100%;border-collapse:collapse}
+.dg th{font-size:12px;font-weight:700;color:var(--grey-600);text-align:left;padding:10px var(--sp-md);border-bottom:1px solid var(--grey-200);background:var(--grey-100);white-space:nowrap}
+.dg td{padding:10px var(--sp-md);border-bottom:1px solid var(--grey-200);vertical-align:middle}
+.dg tbody tr{cursor:pointer}
+.dg tbody tr:hover{background:var(--secondary-light)}
+.dg tbody tr:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
+.dg tbody tr.row-flash{animation:flash 1.2s ease}
+@keyframes flash{0%{background:var(--secondary-light)}100%{background:transparent}}
+.dg .num{text-align:right;font-variant-numeric:tabular-nums}
+.dg th.num{text-align:right}
+.cell-ai{display:inline-flex;align-items:center;gap:6px}
+.cell-empty{color:var(--warning-dark);font-size:12px;display:inline-flex;align-items:center;gap:4px}
+.cell-empty::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--warning)}
+.dg-footer{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-sm) var(--sp-md);color:var(--grey-600);font-size:12px}
+.totalizador b{color:var(--grey-800)}
+.legend{display:flex;gap:var(--sp-md);align-items:center;padding:var(--sp-sm) var(--sp-md);border-bottom:1px solid var(--grey-200);background:#fff;font-size:12px;color:var(--grey-600);flex-wrap:wrap}
+.skel td{padding:14px var(--sp-md)}
+.skel .bar{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--grey-200) 25%,var(--grey-100) 50%,var(--grey-200) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.ni-section{margin-top:var(--sp-lg)}
+.ni-card{background:#fff;border:1px solid var(--grey-200);border-radius:8px}
+.ni-item{display:flex;align-items:center;gap:var(--sp-md);padding:var(--sp-md);border-bottom:1px solid var(--grey-200)}
+.ni-item:last-child{border-bottom:none}
+.ni-item .fic{width:36px;height:36px;border-radius:6px;background:#FDECEC;color:var(--error);display:flex;align-items:center;justify-content:center;font-size:16px;flex:none}
+.ni-item .meta{flex:1;min-width:0}
+.ni-empty{padding:var(--sp-lg);text-align:center;color:var(--grey-600)}
+.empty-state{padding:var(--sp-3xl) var(--sp-lg);text-align:center}
+.empty-state .ic{width:48px;height:48px;border-radius:50%;background:var(--secondary-light);color:var(--primary);display:inline-flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:var(--sp-md)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s;z-index:80}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:560px;max-width:100vw;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.18);transform:translateX(100%);transition:transform .25s ease;z-index:90;display:flex;flex-direction:column}
+.drawer.open{transform:translateX(0)}
+.drawer-top{padding:var(--sp-md) var(--sp-lg) var(--sp-sm);border-bottom:1px solid var(--grey-200)}
+.drawer-top .row1{display:flex;align-items:center;gap:var(--sp-sm)}
+.drawer-top .counter{font-family:Sora;font-size:20px;font-weight:700;line-height:28px;flex:1}
+.drawer-top .saved-flag{display:none;align-items:center;gap:4px;color:var(--success-dark);font-size:12px;font-weight:500}
+.drawer-top .saved-flag.show{display:inline-flex}
+.dprog{display:flex;align-items:center;gap:var(--sp-sm);margin-top:var(--sp-sm)}
+.dprog .track{flex:1;height:4px;background:var(--grey-200);border-radius:2px;overflow:hidden}
+.dprog .fill{height:100%;background:var(--success);width:0;transition:width .3s}
+.dprog .lbl{font-size:12px;color:var(--grey-600);white-space:nowrap}
+.drawer-body{flex:1;overflow-y:auto;padding:var(--sp-md) var(--sp-lg) var(--sp-lg)}
+.dsec{margin-bottom:var(--sp-lg)}
+.dsec>h3{font-size:14px;font-weight:700;line-height:19px;color:var(--grey-800);padding-bottom:var(--sp-sm);border-bottom:1px solid var(--grey-200);margin-bottom:var(--sp-md);display:flex;align-items:center;gap:var(--sp-sm)}
+.frow{display:flex;gap:var(--sp-md);margin-bottom:var(--sp-md)}
+.frow:last-child{margin-bottom:0}
+.fld{flex:1;display:flex;flex-direction:column;min-width:0}
+.fld label{font-size:12px;line-height:17px;color:var(--grey-600);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.fld label .req{color:var(--error)}
+.fld input,.fld select{height:32px;border:1px solid var(--grey-400);border-radius:4px;padding:0 10px;font-size:14px;color:var(--grey-800);background:#fff;width:100%}
+.fld input:hover,.fld select:hover{border-color:var(--grey-600)}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.fld.error input,.fld.error select{border-color:var(--error);box-shadow:0 0 0 1px var(--error)}
+.fld .assistive{font-size:12px;line-height:17px;margin-top:4px;color:var(--grey-600);display:none}
+.fld.error .assistive{display:block;color:var(--error)}
+.fld.pending input,.fld.pending select{border-color:var(--warning);background:#FFF8EF}
+.fld.pending .pend-hint{display:flex;font-size:12px;color:var(--warning-dark);margin-top:4px;align-items:center;gap:4px}
+.fld .pend-hint{display:none}
+.fld.error .pend-hint{display:none}
+.credor-pending{border:1px dashed var(--warning);border-radius:6px;background:#FFF8EF;padding:var(--sp-md);font-size:13px}
+.credor-pending b{display:flex;align-items:center;gap:6px;color:var(--warning-dark);margin-bottom:4px}
+.credor-pending a{color:var(--primary);font-weight:500;text-decoration:none}
+.credor-pending .caption{margin-top:4px}
+.parc-table{width:100%;border-collapse:collapse;margin-bottom:var(--sp-sm)}
+.parc-table th{font-size:12px;color:var(--grey-600);font-weight:700;text-align:left;padding:6px 8px;border-bottom:1px solid var(--grey-200)}
+.parc-table td{padding:6px 8px;border-bottom:1px solid var(--grey-200)}
+.parc-table input{height:32px;border:1px solid var(--grey-400);border-radius:4px;padding:0 8px;font-size:13px;width:100%}
+.parc-table input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.parc-sum{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:var(--sp-sm);border-radius:4px;background:var(--grey-100)}
+.parc-sum.err{background:#FDECEC;color:var(--error-dark)}
+.parc-sum.ok{background:#F1F9F1;color:var(--success-dark)}
+.drawer-footer{display:flex;align-items:center;justify-content:flex-end;gap:var(--sp-sm);padding:var(--sp-md) var(--sp-lg);border-top:1px solid var(--grey-200);background:#fff}
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:110}
+.modal-ov.open{display:flex}
+.modal{background:#fff;border-radius:8px;max-width:440px;width:calc(100% - 48px);padding:var(--sp-lg);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.modal h2{font-family:Sora;font-size:20px;font-weight:700;line-height:28px;margin-bottom:var(--sp-sm)}
+.modal p{color:var(--grey-600);margin-bottom:var(--sp-lg)}
+.modal .actions{display:flex;justify-content:flex-end;gap:var(--sp-sm);flex-wrap:wrap}
+.snackbar{position:fixed;left:50%;bottom:32px;transform:translate(-50%,80px);background:var(--grey-800);color:#fff;padding:10px 16px;border-radius:6px;font-size:13px;display:flex;align-items:center;gap:var(--sp-md);transition:transform .25s;z-index:120;max-width:90vw}
+.snackbar.show{transform:translate(-50%,0)}
+.snackbar .sb-action{background:none;border:none;color:var(--secondary-dark);font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.4px}
+[data-tip]{position:relative}
+[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--grey-800);color:#fff;font-size:11px;line-height:15px;padding:5px 8px;border-radius:4px;white-space:nowrap;z-index:130;pointer-events:none}
+@media (max-width:720px){
+  .drawer{width:100vw}
+  .frow{flex-direction:column}
+  .page{margin-left:0;padding:var(--sp-md)}
+  .sidebar{display:none}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo">Sienge <span>Plataforma</span></div>
+  <div class="search">🔍 <span>Pesquisar...</span></div>
+  <div class="icons">
+    <span title="Notificações">🔔</span><span title="Novidades">📢</span><span title="Suporte">🎧</span><span title="Apps">▦</span>
+    <div class="avatar">LM</div>
+  </div>
+</header>
+<nav class="sidebar">
+  <div class="s-item home" title="Home">⌂</div>
+  <div class="s-item" title="Favoritos">★</div>
+  <div class="s-item active" title="Financeiro">$</div>
+  <div class="s-item" title="Suprimentos">▣</div>
+  <div class="s-item" title="Mais">…</div>
+  <div class="spacer"></div>
+  <div class="s-item" title="Configurações">⚙</div>
+</nav>
+<main class="page">
+  <nav class="breadcrumbs" aria-label="breadcrumb">
+    <a href="#">Home</a> / <a href="#">Financeiro</a> / <a href="#">Contas a Pagar</a> / Criação de títulos com IA
+  </nav>
+  <div class="page-header">
+    <div>
+      <h1 class="h4-page-title" id="pageTitle">12 títulos identificados</h1>
+      <div class="sub">
+        <span class="caption">Lote: <b>notas-fornecedores-maio.pdf</b> · lido pela IA</span>
+        <span class="ai-badge lg" data-tip="Conteúdo identificado por IA">✦</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-soft" id="btnAddDocs">Adicionar documentos</button>
+      <button class="btn btn-primary" id="btnRevisar"><span class="lbl">Revisar títulos</span></button>
+    </div>
+  </div>
+  <div class="lote-bar" id="loteBar">
+    <span class="body-subtitle" id="loteCount">0 de 12 salvos</span>
+    <div class="track"><div class="fill" id="loteFill"></div></div>
+    <span class="caption" id="loteHint">Revise e salve cada título para concluir o lote</span>
+  </div>
+  <section class="grid-card" aria-label="Títulos identificados">
+    <div class="grid-toolbar">
+      <button class="tb">Colunas</button><button class="tb">Filtros</button><button class="tb">Densidade</button>
+      <div class="gsearch">🔍 Pesquise...</div>
+    </div>
+    <div class="legend">
+      <span><span class="chip chip-pending" data-tip="Título lido pela IA, ainda não revisado e salvo">Não validado</span></span>
+      <span><span class="chip chip-done" data-tip="Título revisado e salvo por você">✓ Completo</span></span>
+      <span style="margin-left:auto" class="caption"><span class="ai-badge">✦</span> preenchido pela IA · campos Documento e Nº documento exigem preenchimento manual</span>
+    </div>
+    <table class="dg" id="dgTable">
+      <thead>
+        <tr>
+          <th>Status</th><th>Credor</th><th>Documento</th><th>Nº documento</th>
+          <th>Data emissão</th><th class="num">Valor total</th><th>Parcelas</th><th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="dgBody"></tbody>
+    </table>
+    <div class="dg-footer">
+      <span class="totalizador" id="totalizador"></span>
+      <span>Linhas por página: 25 &nbsp;·&nbsp; 1–12 de 12</span>
+    </div>
+  </section>
+  <section class="ni-section" id="niSection">
+    <h2 class="h6-section-title" style="margin-bottom:var(--sp-sm)">Documentos não identificados</h2>
+    <p class="caption" style="margin-bottom:var(--sp-sm)">A IA não conseguiu extrair títulos destes arquivos. Eles não impedem a conclusão do lote.</p>
+    <div class="ni-card" id="niList"></div>
+  </section>
+</main>
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dCounter">
+  <div class="drawer-top">
+    <div class="row1">
+      <span class="counter" id="dCounter">Título 1 de 12</span>
+      <span class="saved-flag" id="dSavedFlag">✓ Salvo</span>
+      <button class="icon-btn" id="dPrev" data-tip="Título anterior" aria-label="Título anterior">‹</button>
+      <button class="icon-btn" id="dNext" data-tip="Próximo título" aria-label="Próximo título">›</button>
+      <button class="icon-btn" id="dClose" data-tip="Fechar (Esc)" aria-label="Fechar">✕</button>
+    </div>
+    <div class="dprog">
+      <div class="track"><div class="fill" id="dFill"></div></div>
+      <span class="lbl" id="dProgLbl">0 de 12 salvos</span>
+    </div>
+  </div>
+  <div class="drawer-body" id="drawerBody">
+    <div class="dsec">
+      <h3>Identificação</h3>
+      <div class="frow">
+        <div class="fld" id="f-empresa">
+          <label for="in-empresa">Empresa <span class="ai-slot"></span></label>
+          <input id="in-empresa" data-field="empresa" autocomplete="off">
+          <span class="assistive"></span>
+        </div>
+      </div>
+      <div class="frow" id="credorRow">
+        <div class="fld" id="f-credor">
+          <label for="in-credor">Credor <span class="req">*</span> <span class="ai-slot"></span></label>
+          <input id="in-credor" data-field="credor" autocomplete="off" placeholder="Busque pelo nome ou CNPJ">
+          <span class="assistive">Informe o credor para salvar o título.</span>
+        </div>
+      </div>
+      <div id="credorPendingBox" class="credor-pending" style="display:none;margin-bottom:var(--sp-md)">
+        <b>⚠ Credor não identificado pela IA</b>
+        Nenhum cadastro corresponde ao credor lido no documento.
+        <a href="#" id="lnkCadastroCredor">Cadastrar credor na tela de cadastro →</a>
+        <div class="caption">Abre a tela legada em outra etapa; você voltará para este mesmo título depois do cadastro.</div>
+      </div>
+      <div class="frow">
+        <div class="fld pending" id="f-documento">
+          <label for="in-documento">Documento <span class="req">*</span></label>
+          <select id="in-documento" data-field="documento">
+            <option value="">Selecione o tipo</option>
+            <option>NF — Nota Fiscal</option><option>NFS — Nota Fiscal de Serviço</option>
+            <option>FAT — Fatura</option><option>BOL — Boleto</option><option>REC — Recibo</option>
+          </select>
+          <span class="assistive">Selecione o tipo de documento para salvar o título.</span>
+          <span class="pend-hint">⚠ A IA não identifica este campo — preenchimento manual</span>
+        </div>
+        <div class="fld pending" id="f-numeroDoc">
+          <label for="in-numeroDoc">Nº documento <span class="req">*</span></label>
+          <input id="in-numeroDoc" data-field="numeroDoc" autocomplete="off" placeholder="Ex.: 12345">
+          <span class="assistive">Informe o número do documento para salvar o título.</span>
+          <span class="pend-hint">⚠ A IA não identifica este campo — preenchimento manual</span>
+        </div>
+      </div>
+    </div>
+    <div class="dsec">
+      <h3>Valores e datas</h3>
+      <div class="frow">
+        <div class="fld" id="f-dataEmissao">
+          <label for="in-dataEmissao">Data emissão <span class="ai-slot"></span></label>
+          <input id="in-dataEmissao" data-field="dataEmissao" type="date">
+          <span class="assistive"></span>
+        </div>
+        <div class="fld" id="f-valorTotal">
+          <label for="in-valorTotal">Valor total <span class="req">*</span> <span class="ai-slot"></span></label>
+          <input id="in-valorTotal" data-field="valorTotal" inputmode="decimal" placeholder="0,00">
+          <span class="assistive">Informe o valor total do título.</span>
+        </div>
+        <div class="fld" id="f-dataContabil">
+          <label for="in-dataContabil">Data contábil</label>
+          <input id="in-dataContabil" data-field="dataContabil" type="date">
+          <span class="assistive"></span>
+        </div>
+      </div>
+    </div>
+    <div class="dsec">
+      <h3>Parcelas <span class="ai-slot" id="parcAiSlot"></span></h3>
+      <table class="parc-table" id="parcTable">
+        <thead><tr><th style="width:48px">#</th><th>Valor (R$)</th><th>Vencimento</th><th style="width:40px"></th></tr></thead>
+        <tbody id="parcBody"></tbody>
+      </table>
+      <div class="parc-sum" id="parcSum"></div>
+      <div style="margin-top:var(--sp-sm)">
+        <button class="btn btn-text" id="btnAddParc">+ Adicionar parcela</button>
+      </div>
+    </div>
+    <div class="dsec">
+      <h3>Apropriação</h3>
+      <div class="frow">
+        <div class="fld" id="f-centroCusto">
+          <label for="in-centroCusto">Centro de custo</label>
+          <select id="in-centroCusto" data-field="centroCusto">
+            <option value="">Selecione</option>
+            <option>101 — Obra Jardim das Acácias</option><option>102 — Obra Vista Verde</option>
+            <option>200 — Administrativo</option>
+          </select>
+          <span class="assistive"></span>
+        </div>
+        <div class="fld" id="f-planoFinanceiro">
+          <label for="in-planoFinanceiro">Plano financeiro</label>
+          <select id="in-planoFinanceiro" data-field="planoFinanceiro">
+            <option value="">Selecione</option>
+            <option>2.01 — Materiais de construção</option><option>2.02 — Serviços de terceiros</option>
+            <option>3.01 — Despesas administrativas</option>
+          </select>
+          <span class="assistive"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-footer">
+    <button class="btn btn-text" id="dFechar">Fechar</button>
+    <button class="btn btn-secondary" id="dSalvar"><span class="spinner" style="border-color:rgba(34,116,216,.3);border-top-color:var(--primary)"></span><span class="lbl">Salvar</span></button>
+    <button class="btn btn-primary" id="dSalvarProx"><span class="spinner"></span><span class="lbl">Salvar e ir para o próximo</span></button>
+  </div>
+</aside>
+<div class="modal-ov" id="modalOv">
+  <div class="modal" role="alertdialog" aria-labelledby="modalTitle">
+    <h2 id="modalTitle">Alterações não salvas</h2>
+    <p>Este título tem alterações que ainda não foram salvas. O que você quer fazer?</p>
+    <div class="actions">
+      <button class="btn btn-danger-text" id="mDescartar">Descartar alterações</button>
+      <button class="btn btn-secondary" id="mContinuar">Continuar editando</button>
+      <button class="btn btn-primary" id="mSalvarContinuar">Salvar e continuar</button>
+    </div>
+  </div>
+</div>
+<div class="snackbar" id="snackbar"><span id="snackMsg"></span><button class="sb-action" id="snackAction" style="display:none"></button></div>
+<script>
+const mkParc=(arr)=>arr.map(p=>({valor:p[0],venc:p[1]}));
+const titulos=[
+ {id:1,credor:"Construfort Materiais LTDA",empresa:"Incorporadora Horizonte S.A.",documento:"NF — Nota Fiscal",numeroDoc:"48211",dataEmissao:"2026-05-04",valorTotal:12480.00,dataContabil:"2026-05-04",centroCusto:"101 — Obra Jardim das Acácias",planoFinanceiro:"2.01 — Materiais de construção",parcelas:mkParc([[6240,"2026-06-05"],[6240,"2026-07-05"]]),saved:true},
+ {id:2,credor:"Elétrica Santa Luzia ME",empresa:"Incorporadora Horizonte S.A.",documento:"NFS — Nota Fiscal de Serviço",numeroDoc:"1077",dataEmissao:"2026-05-06",valorTotal:3850.00,dataContabil:"2026-05-06",centroCusto:"101 — Obra Jardim das Acácias",planoFinanceiro:"2.02 — Serviços de terceiros",parcelas:mkParc([[3850,"2026-06-10"]]),saved:true},
+ {id:3,credor:"Locadora de Andaimes Beta",empresa:"Incorporadora Horizonte S.A.",documento:"FAT — Fatura",numeroDoc:"2026-118",dataEmissao:"2026-05-08",valorTotal:5400.00,dataContabil:"2026-05-08",centroCusto:"102 — Obra Vista Verde",planoFinanceiro:"2.02 — Serviços de terceiros",parcelas:mkParc([[1800,"2026-06-08"],[1800,"2026-07-08"],[1800,"2026-08-08"]]),saved:true},
+ {id:4,credor:"Cimentos Planalto S.A.",empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-09",valorTotal:28940.50,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[14470.25,"2026-06-09"],[14470.25,"2026-07-09"]]),saved:false},
+ {id:5,credor:null,empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-09",valorTotal:7320.00,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[7320,"2026-06-15"]]),saved:false},
+ {id:6,credor:"Hidráulica União LTDA",empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-10",valorTotal:2145.90,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[2145.90,"2026-06-12"]]),saved:false},
+ {id:7,credor:"Aço Forte Distribuidora",empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-12",valorTotal:46210.00,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[15400,"2026-06-12"],[15400,"2026-07-12"],[15410,"2026-08-12"]]),saved:false},
+ {id:8,credor:"Vidraçaria Cristal",empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-13",valorTotal:9870.00,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[4935,"2026-06-20"],[4935,"2026-07-20"]]),saved:false},
+ {id:9,credor:"Transportes Rápido Sul",empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-15",valorTotal:1580.00,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[1580,"2026-06-15"]]),saved:false},
+ {id:10,credor:"Pinturas & Acabamentos JK",empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-16",valorTotal:13200.00,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[6600,"2026-06-16"],[6600,"2026-07-16"]]),saved:false},
+ {id:11,credor:"Esquadrias Alumitec",empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-18",valorTotal:22480.00,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[11240,"2026-07-01"],[11240,"2026-08-01"]]),saved:false},
+ {id:12,credor:"Paisagismo Verde Vivo",empresa:"Incorporadora Horizonte S.A.",documento:"",numeroDoc:"",dataEmissao:"2026-05-20",valorTotal:4990.00,dataContabil:"",centroCusto:"",planoFinanceiro:"",parcelas:mkParc([[4990,"2026-06-25"]]),saved:false},
+];
+titulos.forEach(t=>{t.ai={empresa:true,credor:!!t.credor,dataEmissao:true,valorTotal:true,parcelas:true};});
+let docsNI=[
+ {nome:"comprovante-pix-scan.pdf",motivo:"Imagem com baixa resolução — texto ilegível"},
+ {nome:"planilha-medicao-v3.xlsx",motivo:"Estrutura de colunas não reconhecida"},
+];
+const $=s=>document.querySelector(s);
+const fmtBRL=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const fmtNum=v=>v.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const parseNum=s=>{const n=parseFloat(String(s).replace(/\./g,"").replace(",","."));return isNaN(n)?0:n;};
+const fmtData=iso=>iso?iso.split("-").reverse().join("/"):"";
+const track=(ev,props)=>console.log("[mixpanel]",ev,props||{});
+let cur=-1, dirty=false, lastFocusedRow=null, pendingNav=null;
+let snackTimer;
+function snack(msg,actionLbl,actionFn){
+  $("#snackMsg").textContent=msg;
+  const a=$("#snackAction");
+  if(actionLbl){a.style.display="";a.textContent=actionLbl;a.onclick=()=>{actionFn&&actionFn();hideSnack();};}
+  else a.style.display="none";
+  $("#snackbar").classList.add("show");
+  clearTimeout(snackTimer);snackTimer=setTimeout(hideSnack,4000);
+}
+const hideSnack=()=>$("#snackbar").classList.remove("show");
+function savedCount(){return titulos.filter(t=>t.saved).length;}
+function renderGrid(){
+  const tb=$("#dgBody");tb.innerHTML="";
+  titulos.forEach((t,i)=>{
+    const tr=document.createElement("tr");
+    tr.tabIndex=0;tr.dataset.idx=i;
+    tr.setAttribute("aria-label",`Título ${i+1}: ${t.credor||"credor não identificado"}, ${t.saved?"completo":"não validado"}`);
+    const ai=(val,on)=>on?`<span class="cell-ai">${val}<span class="ai-badge" data-tip="Preenchido pela IA">✦</span></span>`:val;
+    tr.innerHTML=`
+      <td>${t.saved?'<span class="chip chip-done" data-tip="Revisado e salvo por você">✓ Completo</span>':'<span class="chip chip-pending" data-tip="Lido pela IA, ainda não revisado e salvo">Não validado</span>'}</td>
+      <td>${t.credor?ai(t.credor,t.ai.credor):'<span class="cell-empty">Credor não identificado</span>'}</td>
+      <td>${t.documento?t.documento.split(" — ")[0]:'<span class="cell-empty">Preencher</span>'}</td>
+      <td>${t.numeroDoc||'<span class="cell-empty">Preencher</span>'}</td>
+      <td>${ai(fmtData(t.dataEmissao),t.ai.dataEmissao)}</td>
+      <td class="num">${ai(fmtBRL(t.valorTotal),t.ai.valorTotal)}</td>
+      <td>${ai(t.parcelas.length+"x",t.ai.parcelas)}</td>
+      <td><button class="icon-btn row-open" data-tip="Abrir no painel de revisão" aria-label="Abrir título">✎</button></td>`;
+    tr.addEventListener("click",()=>{lastFocusedRow=tr;openDrawer(i,"row");});
+    tr.addEventListener("keydown",e=>{
+      if(e.key==="Enter"){lastFocusedRow=tr;openDrawer(i,"row");}
+      if(e.key==="ArrowDown"){e.preventDefault();tr.nextElementSibling?.focus();}
+      if(e.key==="ArrowUp"){e.preventDefault();tr.previousElementSibling?.focus();}
+    });
+    tb.appendChild(tr);
+  });
+  updateProgress();
+}
+function renderSkeleton(){
+  const tb=$("#dgBody");tb.innerHTML="";
+  for(let i=0;i<6;i++){
+    const tr=document.createElement("tr");tr.className="skel";
+    tr.innerHTML=Array.from({length:8},(_,c)=>`<td><div class="bar" style="width:${[70,120,60,70,80,90,40,28][c]}px"></div></td>`).join("");
+    tb.appendChild(tr);
+  }
+}
+function updateProgress(){
+  const s=savedCount(),n=titulos.length,done=s===n;
+  $("#loteCount").textContent=`${s} de ${n} salvos`;
+  $("#loteFill").style.width=(s/n*100)+"%";
+  $("#dProgLbl").textContent=`${s} de ${n} salvos`;
+  $("#dFill").style.width=(s/n*100)+"%";
+  $("#totalizador").innerHTML=`<b>Total de títulos:</b> ${n} · <b>Completos:</b> ${s} · <b>Não validados:</b> ${n-s} · <b>Valor do lote:</b> ${fmtBRL(titulos.reduce((a,t)=>a+t.valorTotal,0))}`;
+  const btn=$("#btnRevisar");
+  $("#loteBar").classList.toggle("done-state",done);
+  if(done){
+    btn.querySelector(".lbl").textContent="Concluir lote";
+    $("#loteHint").textContent="Todos os títulos foram salvos. Conclua o lote para gerar os títulos no Contas a Pagar.";
+  }else{
+    btn.querySelector(".lbl").textContent=s>0?"Continuar revisão":"Revisar títulos";
+    $("#loteHint").textContent="Revise e salve cada título para concluir o lote";
+  }
+}
+function renderNI(){
+  const box=$("#niList");
+  if(!docsNI.length){box.innerHTML='<div class="ni-empty">Nenhum documento pendente. Todos os arquivos do lote foram processados.</div>';return;}
+  box.innerHTML="";
+  docsNI.forEach((d,i)=>{
+    const el=document.createElement("div");el.className="ni-item";
+    el.innerHTML=`<div class="fic">⚠</div>
+      <div class="meta"><div class="body-subtitle">${d.nome}</div><div class="caption">${d.motivo}</div></div>
+      <button class="btn btn-text">Tentar novamente</button>
+      <button class="btn btn-danger-text">Remover</button>`;
+    el.querySelectorAll("button")[0].onclick=()=>{track("ni_reprocessar",{arquivo:d.nome});snack(`Reprocessando "${d.nome}"...`);};
+    el.querySelectorAll("button")[1].onclick=()=>{track("ni_remover",{arquivo:d.nome});docsNI.splice(i,1);renderNI();snack("Arquivo removido do lote");};
+    box.appendChild(el);
+  });
+}
+const fields=["empresa","credor","documento","numeroDoc","dataEmissao","valorTotal","dataContabil","centroCusto","planoFinanceiro"];
+function setAiBadge(field,on){
+  const slot=document.querySelector(`#f-${field} .ai-slot`);
+  if(slot)slot.innerHTML=on?'<span class="ai-badge" data-tip="Preenchido pela IA">✦</span>':"";
+}
+function loadTitle(i){
+  cur=i;dirty=false;clearErrors();
+  const t=titulos[i];
+  $("#dCounter").textContent=`Título ${i+1} de ${titulos.length}`;
+  $("#dSavedFlag").classList.toggle("show",t.saved);
+  $("#in-empresa").value=t.empresa;
+  $("#in-credor").value=t.credor||"";
+  $("#in-documento").value=t.documento;
+  $("#in-numeroDoc").value=t.numeroDoc;
+  $("#in-dataEmissao").value=t.dataEmissao;
+  $("#in-valorTotal").value=t.valorTotal?fmtNum(t.valorTotal):"";
+  $("#in-dataContabil").value=t.dataContabil;
+  $("#in-centroCusto").value=t.centroCusto;
+  $("#in-planoFinanceiro").value=t.planoFinanceiro;
+  ["empresa","credor","dataEmissao","valorTotal"].forEach(f=>setAiBadge(f,t.ai[f]));
+  $("#parcAiSlot").innerHTML=t.ai.parcelas?'<span class="ai-badge" data-tip="Parcelas identificadas pela IA — a leitura tem precisão menor aqui; confira valores e vencimentos">✦</span>':"";
+  $("#credorPendingBox").style.display=t.credor===null&&!$("#in-credor").value?"":"none";
+  ["documento","numeroDoc"].forEach(f=>{
+    $(`#f-${f}`).classList.toggle("pending",!$(`#in-${f}`).value);
+  });
+  renderParcelas(t.parcelas.map(p=>({...p})));
+  updateProgress();
+  $("#dPrev").disabled=i===0;
+  $("#dNext").disabled=i===titulos.length-1;
+}
+let parcWork=[];
+function renderParcelas(list){
+  parcWork=list;
+  const tb=$("#parcBody");tb.innerHTML="";
+  parcWork.forEach((p,i)=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td class="caption">${i+1}ª</td>
+      <td><input value="${fmtNum(p.valor)}" inputmode="decimal" aria-label="Valor da parcela ${i+1}"></td>
+      <td><input type="date" value="${p.venc}" aria-label="Vencimento da parcela ${i+1}"></td>
+      <td><button class="icon-btn" data-tip="Remover parcela" aria-label="Remover parcela ${i+1}">🗑</button></td>`;
+    const [vIn,dIn]=tr.querySelectorAll("input");
+    vIn.addEventListener("input",()=>{p.valor=parseNum(vIn.value);markDirty("parcelas");updateParcSum();});
+    vIn.addEventListener("blur",()=>{vIn.value=fmtNum(p.valor);});
+    dIn.addEventListener("change",()=>{p.venc=dIn.value;markDirty("parcelas");});
+    tr.querySelector("button").onclick=()=>{parcWork.splice(i,1);markDirty("parcelas");renderParcelas(parcWork);};
+    tb.appendChild(tr);
+  });
+  updateParcSum();
+}
+function updateParcSum(){
+  const total=parseNum($("#in-valorTotal").value);
+  const soma=parcWork.reduce((a,p)=>a+p.valor,0);
+  const diff=Math.round((total-soma)*100)/100;
+  const el=$("#parcSum");
+  if(Math.abs(diff)<0.005){el.className="parc-sum ok";el.innerHTML=`<span>Soma das parcelas: <b>${fmtBRL(soma)}</b></span><span>✓ igual ao valor total</span>`;}
+  else{el.className="parc-sum err";el.innerHTML=`<span>Soma das parcelas: <b>${fmtBRL(soma)}</b></span><span>Diferença de <b>${fmtBRL(diff)}</b> para o valor total</span>`;}
+  return Math.abs(diff)<0.005;
+}
+function markDirty(field){
+  dirty=true;
+  const t=titulos[cur];
+  if(t.ai[field]){
+    t.ai[field]=false;
+    if(field==="parcelas")$("#parcAiSlot").innerHTML="";else setAiBadge(field,false);
+    track("campo_ia_editado",{titulo:t.id,campo:field});
+  }
+}
+fields.forEach(f=>{
+  const el=document.querySelector(`#in-${f}`);
+  el.addEventListener("input",()=>{
+    markDirty(f);
+    document.querySelector(`#f-${f}`).classList.remove("error");
+    if(f==="documento"||f==="numeroDoc")$(`#f-${f}`).classList.toggle("pending",!el.value);
+    if(f==="valorTotal")updateParcSum();
+    if(f==="credor"&&el.value)$("#credorPendingBox").style.display="none";
+  });
+});
+$("#in-valorTotal").addEventListener("blur",e=>{const n=parseNum(e.target.value);if(n)e.target.value=fmtNum(n);});
+$("#btnAddParc").onclick=()=>{
+  const total=parseNum($("#in-valorTotal").value);
+  const soma=parcWork.reduce((a,p)=>a+p.valor,0);
+  const rest=Math.max(Math.round((total-soma)*100)/100,0);
+  parcWork.push({valor:rest,venc:""});markDirty("parcelas");renderParcelas(parcWork);
+  track("parcela_adicionada",{titulo:titulos[cur].id});
+};
+function clearErrors(){document.querySelectorAll(".fld.error").forEach(e=>e.classList.remove("error"));}
+function setError(field,msg){
+  const w=document.querySelector(`#f-${field}`);w.classList.add("error");
+  if(msg)w.querySelector(".assistive").textContent=msg;
+  track("erro_validacao",{titulo:titulos[cur].id,campo:field});
+}
+function validate(){
+  clearErrors();let ok=true,first=null;
+  const reqs=[["credor","Informe o credor para salvar o título."],
+              ["documento","Selecione o tipo de documento para salvar o título."],
+              ["numeroDoc","Informe o número do documento para salvar o título."],
+              ["valorTotal","Informe o valor total do título."]];
+  reqs.forEach(([f,msg])=>{
+    if(!document.querySelector(`#in-${f}`).value){setError(f,msg);ok=false;first=first||f;}
+  });
+  if(!updateParcSum()){ok=false;snack("A soma das parcelas precisa ser igual ao valor total do título.");}
+  if(parcWork.some(p=>!p.venc)){ok=false;snack("Toda parcela precisa de uma data de vencimento.");}
+  if(first)document.querySelector(`#in-${first}`).focus();
+  return ok;
+}
+function collect(){
+  const t=titulos[cur];
+  t.empresa=$("#in-empresa").value;
+  t.credor=$("#in-credor").value||null;
+  t.documento=$("#in-documento").value;
+  t.numeroDoc=$("#in-numeroDoc").value;
+  t.dataEmissao=$("#in-dataEmissao").value;
+  t.valorTotal=parseNum($("#in-valorTotal").value);
+  t.dataContabil=$("#in-dataContabil").value;
+  t.centroCusto=$("#in-centroCusto").value;
+  t.planoFinanceiro=$("#in-planoFinanceiro").value;
+  t.parcelas=parcWork.map(p=>({...p}));
+}
+function doSave(btn,advance,after){
+  if(!validate())return;
+  btn.classList.add("loading");
+  document.querySelectorAll(".drawer-footer .btn,.drawer-top .icon-btn").forEach(b=>b.disabled=true);
+  setTimeout(()=>{
+    btn.classList.remove("loading");
+    document.querySelectorAll(".drawer-footer .btn,.drawer-top .icon-btn").forEach(b=>b.disabled=false);
+    collect();
+    titulos[cur].saved=true;dirty=false;
+    track("titulo_salvo",{titulo:titulos[cur].id,botao:advance?"salvar_e_proximo":"salvar"});
+    renderGrid();
+    if(after){after();return;}
+    if(advance){
+      const next=titulos.findIndex((t,i)=>!t.saved);
+      if(next===-1){closeDrawer(true);snack("Todos os títulos foram salvos. O lote está pronto para conclusão.");}
+      else{loadTitle(next);snack("Título salvo");}
+    }else{
+      loadTitle(cur);snack("Título salvo");
+    }
+  },600);
+}
+function openDrawer(i,origin){
+  track("drawer_aberto",{origem:origin,titulo:titulos[i].id});
+  loadTitle(i);
+  $("#overlay").classList.add("open");
+  $("#drawer").classList.add("open");
+  setTimeout(()=>$("#in-empresa").focus(),250);
+}
+function closeDrawer(skipGuard){
+  const fin=()=>{
+    $("#overlay").classList.remove("open");
+    $("#drawer").classList.remove("open");
+    if(lastFocusedRow){
+      lastFocusedRow.focus();lastFocusedRow.classList.add("row-flash");
+      setTimeout(()=>lastFocusedRow.classList.remove("row-flash"),1200);
+    }
+  };
+  if(!skipGuard)guard(fin);else fin();
+}
+function guard(action){
+  if(!dirty){action();return;}
+  pendingNav=action;
+  $("#modalOv").classList.add("open");
+  $("#mContinuar").focus();
+  track("modal_nao_salvos_aberto",{titulo:titulos[cur].id});
+}
+$("#mDescartar").onclick=()=>{track("modal_nao_salvos",{opcao:"descartar"});$("#modalOv").classList.remove("open");dirty=false;const a=pendingNav;pendingNav=null;a&&a();};
+$("#mContinuar").onclick=()=>{track("modal_nao_salvos",{opcao:"continuar_editando"});$("#modalOv").classList.remove("open");pendingNav=null;};
+$("#mSalvarContinuar").onclick=()=>{
+  track("modal_nao_salvos",{opcao:"salvar_e_continuar"});
+  $("#modalOv").classList.remove("open");
+  const a=pendingNav;pendingNav=null;
+  doSave($("#dSalvar"),false,a);
+};
+$("#dPrev").onclick=()=>guard(()=>{lastFocusedRow=document.querySelector(`tr[data-idx="${Math.max(cur-1,0)}"]`);loadTitle(Math.max(cur-1,0));});
+$("#dNext").onclick=()=>guard(()=>{lastFocusedRow=document.querySelector(`tr[data-idx="${Math.min(cur+1,titulos.length-1)}"]`);loadTitle(Math.min(cur+1,titulos.length-1));});
+$("#dClose").onclick=()=>closeDrawer();
+$("#dFechar").onclick=()=>closeDrawer();
+$("#overlay").onclick=()=>closeDrawer();
+$("#dSalvar").onclick=()=>doSave($("#dSalvar"),false);
+$("#dSalvarProx").onclick=()=>doSave($("#dSalvarProx"),true);
+$("#btnRevisar").onclick=()=>{
+  const next=titulos.findIndex(t=>!t.saved);
+  if(next===-1){track("lote_concluido",{titulos:titulos.length});snack("Lote concluído! Os títulos foram criados no Contas a Pagar.","Desfazer");return;}
+  lastFocusedRow=document.querySelector(`tr[data-idx="${next}"]`);
+  openDrawer(next,"cta_geral");
+};
+$("#btnAddDocs").onclick=()=>snack("Abre o modal de upload para adicionar documentos ao lote (fora do escopo deste PRD).");
+$("#lnkCadastroCredor").onclick=e=>{e.preventDefault();track("cadastro_credor_legado",{titulo:titulos[cur].id});snack("Plano B: abriria a tela legada de cadastro de credor e retornaria a este título.");};
+document.addEventListener("keydown",e=>{
+  const drawerOpen=$("#drawer").classList.contains("open");
+  const modalOpen=$("#modalOv").classList.contains("open");
+  if(e.key==="Escape"){
+    if(modalOpen){$("#mContinuar").click();return;}
+    if(drawerOpen){closeDrawer();return;}
+  }
+  if(!drawerOpen||modalOpen)return;
+  if(e.key==="Enter"&&e.target.id==="in-planoFinanceiro"){e.preventDefault();$("#dSalvarProx").click();}
+  if(e.key==="Tab"){
+    const focusables=[...$("#drawer").querySelectorAll("button:not(:disabled),input,select")];
+    const first=focusables[0],last=focusables[focusables.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+});
+renderSkeleton();
+renderNI();
+setTimeout(()=>{renderGrid();track("grid_carregado",{titulos:titulos.length,nao_identificados:docsNI.length});},900);
+</script>
+</body>
+</html>

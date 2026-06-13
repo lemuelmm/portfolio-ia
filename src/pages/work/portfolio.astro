@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import DividerBar from '../../components/DividerBar.astro';
 import HeroBar from '../../components/HeroBar.astro';
-import ImageSlot from '../../components/ImageSlot.astro';
 
 import contextRaw from '../../../CONTEXT.md?raw';
 import referencesRaw from '../../../REFERENCES.md?raw';
@@ -80,7 +79,7 @@ const results = [
       <p class="hero__meta">2025 · Juazeiro do Norte, CE</p>
     </div>
     <div class="hero__slot">
-      <ImageSlot ratio="16/9" label="Screenshot do portfólio, imagem a incluir" />
+      <img src="/portfolio/hero.png" alt="Screenshot do portfólio lemueldesign.com" class="hero__img" loading="eager" />
     </div>
   </section>
 
@@ -310,6 +309,12 @@ const results = [
   .hero__meta {
     font-size: var(--fs-small);
     color: var(--text-muted);
+  }
+
+  .hero__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
   }
 
   .section {

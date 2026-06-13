@@ -10,24 +10,28 @@ const cases = [
     description: 'Discovery de IA para criação de títulos em lote.',
     meta: '2025 a atual',
     href: '/work/starian',
+    image: '/sienge/desk.png',
   },
   {
     title: 'GEOPARK ARARIPE',
     description: 'Digitalização dos processos de avaliação ambiental (UNESCO).',
     meta: '2024',
     href: '/work/geopark',
+    image: 'https://cdn.prod.website-files.com/61e2d593fa26ee0bf9afa87a/628143069a1231736ecfa8d7_Frame%203cover.png',
   },
   {
     title: 'YOUSE SEGUROS',
     description: 'Login com CPF e Calculadora de CO2.',
     meta: '2022 a 2024',
     href: '/work/youse',
+    image: '/youse/telas-co2-2.png',
   },
   {
     title: 'PAGURU DIGITAL SOLUTIONS',
     description: 'Projetos em educação, saúde e jurídico.',
     meta: '2020 a 2022',
     href: '/work/paguru',
+    image: '/paguru/ludus.webp',
   },
 ];
 ---
@@ -69,7 +73,7 @@ const cases = [
     <ul class="works__list">
       {cases.map((c, i) => (
         <li>
-          <CaseCard title={c.title} description={c.description} meta={c.meta} href={c.href} />
+          <CaseCard title={c.title} description={c.description} meta={c.meta} href={c.href} image={c.image} />
           {i < cases.length - 1 && <hr class="works__divider" />}
         </li>
       ))}
@@ -87,6 +91,7 @@ const cases = [
       description="Como este site foi construído, do conteúdo ao deploy."
       meta="2025"
       href="/work/portfolio"
+      image="/portfolio/hero.png"
     />
   </section>
 </Base>
