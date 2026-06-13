@@ -2,8 +2,17 @@
 import Base from '../../layouts/Base.astro';
 import DividerBar from '../../components/DividerBar.astro';
 import HeroBar from '../../components/HeroBar.astro';
-import ImageSlot from '../../components/ImageSlot.astro';
 import ImpactBlock from '../../components/ImpactBlock.astro';
+
+const CDN = 'https://cdn.prod.website-files.com/61e2d593fa26ee0bf9afa87a';
+const img = {
+  hero:            `${CDN}/628143069a1231736ecfa8d7_Frame%203cover.png`,
+  contexto:        `${CDN}/6214212d77998341bdf05b55_Frame%201.png`,
+  appTelas:        `${CDN}/6667047335d72661d18358e3_2.png`,
+  painelWeb:       `${CDN}/666703044cb7f8b601e775e7_3.png`,
+  antesDepoisNav:  `${CDN}/66670304879a1635764752da_4.png`,
+  antesDepoisLogin:`${CDN}/66670305b850b221188b7a1b_5.png`,
+};
 
 const chapters = [
   {
@@ -14,8 +23,7 @@ const chapters = [
   {
     number: '02',
     title: 'Período voluntário',
-    description:
-      'Retomada por conta própria, com refinamentos baseados em experiências acumuladas no mercado.',
+    description: 'Retomada por conta própria, com refinamentos baseados em experiências acumuladas no mercado.',
   },
   {
     number: '03',
@@ -31,25 +39,11 @@ const approach = [
   },
   {
     title: 'Definição de escopo',
-    description:
-      'Identificação da necessidade de uma fórmula matemática para mensurar as condições dos locais avaliados, gerando relatórios mais precisos para os gestores.',
+    description: 'Identificação da necessidade de uma fórmula matemática para mensurar as condições dos locais avaliados, gerando relatórios mais precisos para os gestores.',
   },
   {
     title: 'Pesquisa e design',
-    description:
-      'Entrevistas com stakeholders (avaliadores e gestores), protótipos de alta fidelidade e testes de usabilidade.',
-  },
-];
-
-const solutions = [
-  {
-    title: 'App para avaliadores',
-    description: 'Ferramenta de coleta em campo, substituindo o caderno e caneta do processo anterior.',
-  },
-  {
-    title: 'Painel web para gestores',
-    description:
-      'Consolidação dos dados, aplicação da fórmula matemática e geração de relatórios para tomada de decisão.',
+    description: 'Entrevistas com stakeholders (avaliadores e gestores), protótipos de alta fidelidade e testes de usabilidade.',
   },
 ];
 ---
@@ -59,6 +53,7 @@ const solutions = [
     <a href="/" class="back__link">← Trabalhos</a>
   </div>
 
+  <!-- HERO -->
   <section class="container hero">
     <HeroBar />
     <div class="hero__content">
@@ -66,15 +61,17 @@ const solutions = [
       <p class="hero__subtitle">Designer de Produtos</p>
       <p class="hero__meta">Abr. 2024 a Dez. 2024 · Crato, CE</p>
     </div>
-    <div class="hero__slot">
-      <ImageSlot ratio="16/9" label="Hero do case Geopark Araripe — imagem a incluir" />
-    </div>
+    <img
+      src={img.hero}
+      alt="Telas do aplicativo Geopark Araripe — App & Web"
+      class="hero__img"
+      loading="eager"
+    />
   </section>
 
-  <div class="container">
-    <DividerBar />
-  </div>
+  <div class="container"><DividerBar /></div>
 
+  <!-- CONTEXTO -->
   <section class="container section">
     <p class="label">Contexto</p>
     <p class="section__body">
@@ -83,12 +80,17 @@ const solutions = [
       do Araripe, a primeira FLONA do Brasil). O foco do projeto era digitalizar os processos de
       avaliação das áreas de preservação.
     </p>
+    <img
+      src={img.contexto}
+      alt="Mapa do Geoparque Araripe e foto do Geossítio Ponte de Pedra"
+      class="section__img"
+      loading="lazy"
+    />
   </section>
 
-  <div class="container">
-    <DividerBar />
-  </div>
+  <div class="container"><DividerBar /></div>
 
+  <!-- HISTÓRICO -->
   <section class="container section">
     <p class="label">Histórico do projeto</p>
     <p class="section__body">
@@ -108,10 +110,9 @@ const solutions = [
     </ol>
   </section>
 
-  <div class="container">
-    <DividerBar />
-  </div>
+  <div class="container"><DividerBar /></div>
 
+  <!-- DESAFIO -->
   <section class="container section">
     <p class="label">O desafio</p>
     <p class="section__body">
@@ -121,10 +122,26 @@ const solutions = [
     </p>
   </section>
 
-  <div class="container">
-    <DividerBar />
-  </div>
+  <div class="container"><DividerBar /></div>
 
+  <!-- PESQUISA -->
+  <section class="container section">
+    <p class="label">Pesquisa</p>
+    <p class="section__body">
+      A pesquisa revelou um único perfil central: o gestor ambiental que precisa coordenar avaliadores
+      em campo e interpretar os dados para tomada de decisão.
+    </p>
+    <img
+      src={`${CDN}/621424c6440ab8e06dfa9a99_proccess.png`}
+      alt="Persona Eduardo, Jornada do Usuário e Proposta de Valor do Geoparque"
+      class="section__img"
+      loading="lazy"
+    />
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- ABORDAGEM -->
   <section class="container section">
     <p class="label">A abordagem</p>
     <ul class="list-block">
@@ -137,20 +154,94 @@ const solutions = [
     </ul>
   </section>
 
-  <div class="container">
-    <DividerBar />
-  </div>
+  <div class="container"><DividerBar /></div>
 
+  <!-- SOLUÇÃO -->
   <section class="container section">
     <p class="label">A solução</p>
-    <div class="solutions">
-      {solutions.map((sol) => (
-        <article class="solution">
-          <h3 class="list-block__title">{sol.title}</h3>
-          <p class="list-block__description">{sol.description}</p>
-          <ImageSlot ratio="4/3" label={`Tela de ${sol.title} — imagem a incluir`} />
-        </article>
-      ))}
+
+    <article class="solution">
+      <h3 class="list-block__title">App para avaliadores</h3>
+      <p class="list-block__description">
+        Ferramenta de coleta em campo, substituindo o caderno e caneta do processo anterior.
+      </p>
+      <img
+        src={img.appTelas}
+        alt="Telas do app para avaliadores do Geopark Araripe — antes e depois"
+        class="solution__img"
+        loading="lazy"
+      />
+    </article>
+
+    <article class="solution">
+      <h3 class="list-block__title">Painel web para gestores</h3>
+      <p class="list-block__description">
+        Consolidação dos dados, aplicação da fórmula matemática e geração de relatórios para tomada de decisão.
+      </p>
+      <img
+        src={img.painelWeb}
+        alt="Painel web para gestores do Geopark Araripe — antes e depois"
+        class="solution__img"
+        loading="lazy"
+      />
+    </article>
+
+    <article class="solution">
+      <h3 class="list-block__title">Melhorias de navegação e login</h3>
+      <p class="list-block__description">
+        Refinamentos baseados em testes: redução de telas no fluxo de avaliação e tela de login mais acessível.
+      </p>
+      <div class="solution__pair">
+        <img
+          src={img.antesDepoisNav}
+          alt="Antes e depois da navegação e status do Geopark"
+          class="solution__img"
+          loading="lazy"
+        />
+        <img
+          src={img.antesDepoisLogin}
+          alt="Antes e depois da tela de login do Geopark"
+          class="solution__img"
+          loading="lazy"
+        />
+      </div>
+    </article>
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- PROTÓTIPO -->
+  <section class="container section">
+    <p class="label">Protótipo</p>
+    <p class="section__body">
+      Veja o fluxo completo do aplicativo navegável no Figma.
+    </p>
+    <a
+      href="https://www.figma.com/proto/PClP6HgyBYYx644G5ieH3n/Geoparque?node-id=1180-1782&p=f&viewport=37%2C347%2C0.06&t=S39MDWd6FrfFipfF-1&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=1180%3A1782&page-id=1180%3A936"
+      class="proto__link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Abrir protótipo no Figma →
+    </a>
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- VÍDEO -->
+  <section class="container section">
+    <p class="label">Demonstração</p>
+    <p class="section__body">
+      Walkthrough das telas do aplicativo, gravado em 2024.
+    </p>
+    <div class="video__wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/2gF5wNMudb8"
+        title="Telas Aplicativo Geopark Araripe 2024"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
     </div>
   </section>
 
@@ -180,13 +271,14 @@ const solutions = [
     color: var(--accent);
   }
 
+  /* ── HERO ── */
   .hero {
     position: relative;
-    padding-block: clamp(48px, 6vw, 80px) clamp(48px, 6vw, 80px);
+    padding-block: clamp(48px, 6vw, 80px);
     padding-left: calc(var(--pad-x) + 24px);
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    gap: 48px;
   }
 
   .hero__content {
@@ -212,6 +304,13 @@ const solutions = [
     color: var(--text-muted);
   }
 
+  .hero__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  /* ── SEÇÕES ── */
   .section {
     display: flex;
     flex-direction: column;
@@ -224,6 +323,13 @@ const solutions = [
     max-width: var(--content-max);
   }
 
+  .section__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  /* ── HISTÓRICO ── */
   .chapters {
     display: flex;
     flex-direction: column;
@@ -264,6 +370,7 @@ const solutions = [
     line-height: 1.6;
   }
 
+  /* ── ABORDAGEM ── */
   .list-block {
     display: flex;
     flex-direction: column;
@@ -288,18 +395,63 @@ const solutions = [
     line-height: 1.6;
   }
 
-  .solutions {
-    display: flex;
-    flex-direction: column;
-    gap: 64px;
-  }
-
+  /* ── SOLUÇÃO ── */
   .solution {
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
 
+  .solution__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .solution__pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* ── PROTÓTIPO ── */
+  .proto__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-body);
+    color: var(--accent);
+    text-decoration: none;
+    border: 2px solid var(--accent);
+    padding: 12px 20px;
+    width: max-content;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .proto__link:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* ── VÍDEO ── */
+  .video__wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+
+  .video__wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 4px;
+  }
+
+  /* ── PRÓXIMO CASE ── */
   .next__link {
     display: inline-flex;
     align-items: baseline;
@@ -321,10 +473,15 @@ const solutions = [
     text-decoration-color: var(--accent);
   }
 
+  /* ── RESPONSIVO ── */
   @media (max-width: 640px) {
     .chapter {
       grid-template-columns: 1fr;
       gap: 12px;
+    }
+
+    .solution__pair {
+      grid-template-columns: 1fr;
     }
   }
 </style>
