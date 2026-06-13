@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import DividerBar from '../../components/DividerBar.astro';
 import HeroBar from '../../components/HeroBar.astro';
-import ImageSlot from '../../components/ImageSlot.astro';
 import ImpactBlock from '../../components/ImpactBlock.astro';
 
 const loginFailures = [
@@ -86,7 +85,7 @@ const press = [
       <p class="hero__meta">Jun. 2022 a Mar. 2024 · via BOLD Brasil</p>
     </div>
     <div class="hero__slot">
-      <ImageSlot ratio="16/9" label="Hero do case Youse Seguros — imagem a incluir" />
+      <img src="/youse/foto-com-time.png" alt="Time da Youse em reunião presencial e remota" class="hero__img" loading="eager" />
     </div>
   </section>
 
@@ -188,8 +187,11 @@ const press = [
     </div>
 
     <div class="part__slots">
-      <ImageSlot ratio="4/3" label="Tela de cálculo da Calculadora de CO2 — imagem a incluir" />
-      <ImageSlot ratio="4/3" label="Tela de resultado da Calculadora de CO2 — imagem a incluir" />
+      <img src="/youse/telas-co2-1.png" alt="Telas de cálculo da Calculadora de CO2 — Youse" class="slot__img" loading="lazy" />
+      <img src="/youse/telas-co2-2.png" alt="Telas de resultado da Calculadora de CO2 — Youse" class="slot__img" loading="lazy" />
+      <div class="video__slot">
+        <video src="/youse/video-mock.mp4" class="slot__video" controls muted playsinline></video>
+      </div>
     </div>
   </section>
 
@@ -322,6 +324,25 @@ const press = [
     display: flex;
     flex-direction: column;
     gap: 32px;
+  }
+
+  .hero__img,
+  .slot__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .video__slot {
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--divider);
+  }
+
+  .slot__video {
+    width: 100%;
+    display: block;
   }
 
   .list-block {
