@@ -1,0 +1,487 @@
+---
+import Base from '../../../layouts/Base.astro';
+import DividerBar from '../../../components/DividerBar.astro';
+import HeroBar from '../../../components/HeroBar.astro';
+import ImpactBlock from '../../../components/ImpactBlock.astro';
+
+const CDN = 'https://cdn.prod.website-files.com/61e2d593fa26ee0bf9afa87a';
+const img = {
+  hero:            `${CDN}/628143069a1231736ecfa8d7_Frame%203cover.png`,
+  contexto:        `${CDN}/6214212d77998341bdf05b55_Frame%201.png`,
+  appTelas:        `${CDN}/6667047335d72661d18358e3_2.png`,
+  painelWeb:       `${CDN}/666703044cb7f8b601e775e7_3.png`,
+  antesDepoisNav:  `${CDN}/66670304879a1635764752da_4.png`,
+  antesDepoisLogin:`${CDN}/66670305b850b221188b7a1b_5.png`,
+};
+
+const chapters = [
+  {
+    number: '01',
+    title: 'University (NexTI)',
+    description: 'First contact, framing of the problem and an initial solution prototype.',
+  },
+  {
+    number: '02',
+    title: 'Volunteer period',
+    description: 'Picked it back up on my own, with refinements based on experience gathered in the market.',
+  },
+  {
+    number: '03',
+    title: '2024 with the institution',
+    description: 'Directly led the implementation of the digital solution, within the Geopark structure.',
+  },
+];
+
+const approach = [
+  {
+    title: 'Team leadership',
+    description: 'Coordinating the development team in agile cycles.',
+  },
+  {
+    title: 'Scope definition',
+    description: 'Identifying the need for a mathematical formula to measure the conditions of the assessed sites, producing more accurate reports for managers.',
+  },
+  {
+    title: 'Research and design',
+    description: 'Interviews with stakeholders (assessors and managers), high-fidelity prototypes and usability testing.',
+  },
+];
+---
+
+<Base title="Geopark Araripe — Lemuel Monteiro">
+  <div class="container back">
+    <a href="/en" class="back__link">← Work</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">GEOPARK ARARIPE</h1>
+      <p class="hero__subtitle">Product Designer</p>
+      <p class="hero__meta">Apr 2024 to Dec 2024 · Crato, Brazil</p>
+    </div>
+    <img
+      src={img.hero}
+      alt="Geopark Araripe app screens — App & Web"
+      class="hero__img"
+      loading="eager"
+    />
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- CONTEXT -->
+  <section class="container section">
+    <p class="label">Context</p>
+    <p class="section__body">
+      I worked at Geopark Araripe, a UNESCO-affiliated institution that acts as a catalyst for
+      sustainable transformation in the Cariri region of Ceará, Brazil (an area that includes the
+      Araripe National Forest, Brazil's first national forest). The project's focus was to digitize
+      the assessment processes for the preservation areas.
+    </p>
+    <img
+      src={img.contexto}
+      alt="Map of Geopark Araripe and a photo of the Ponte de Pedra geosite"
+      class="section__img"
+      loading="lazy"
+    />
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- HISTORY -->
+  <section class="container section">
+    <p class="label">Project history</p>
+    <p class="section__body">
+      This project spanned three phases of my career, and each time I returned to it I brought
+      refinements based on what I had learned in between:
+    </p>
+    <ol class="chapters">
+      {chapters.map((ch) => (
+        <li class="chapter">
+          <span class="chapter__number" aria-hidden="true">{ch.number}</span>
+          <div class="chapter__content">
+            <h3 class="chapter__title">{ch.title}</h3>
+            <p class="chapter__description">{ch.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- CHALLENGE -->
+  <section class="container section">
+    <p class="label">The challenge</p>
+    <p class="section__body">
+      The manual assessment process for the preservation sites, done with pen and paper in the field,
+      created delays in collecting and analyzing the data. Those delays undermined the planning of
+      conservation actions, which is the Geopark's core work.
+    </p>
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- RESEARCH -->
+  <section class="container section">
+    <p class="label">Research</p>
+    <p class="section__body">
+      Research revealed a single core profile: the environmental manager who needs to coordinate
+      field assessors and interpret the data for decision-making.
+    </p>
+    <img
+      src={`${CDN}/621424c6440ab8e06dfa9a99_proccess.png`}
+      alt="Persona Eduardo, User Journey and Value Proposition for the Geopark"
+      class="section__img"
+      loading="lazy"
+    />
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- APPROACH -->
+  <section class="container section">
+    <p class="label">The approach</p>
+    <ul class="list-block">
+      {approach.map((item) => (
+        <li class="list-block__item">
+          <h3 class="list-block__title">{item.title}</h3>
+          <p class="list-block__description">{item.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- SOLUTION -->
+  <section class="container section">
+    <p class="label">The solution</p>
+
+    <article class="solution">
+      <h3 class="list-block__title">App for assessors</h3>
+      <p class="list-block__description">
+        A field-collection tool, replacing the notebook and pen of the previous process.
+      </p>
+      <img
+        src={img.appTelas}
+        alt="Screens of the Geopark Araripe assessor app — before and after"
+        class="solution__img"
+        loading="lazy"
+      />
+    </article>
+
+    <article class="solution">
+      <h3 class="list-block__title">Web dashboard for managers</h3>
+      <p class="list-block__description">
+        Consolidating the data, applying the mathematical formula and generating reports for decision-making.
+      </p>
+      <img
+        src={img.painelWeb}
+        alt="Geopark Araripe web dashboard for managers — before and after"
+        class="solution__img"
+        loading="lazy"
+      />
+    </article>
+
+    <article class="solution">
+      <h3 class="list-block__title">Navigation and login improvements</h3>
+      <p class="list-block__description">
+        Refinements based on testing: fewer screens in the assessment flow and a more accessible login screen.
+      </p>
+      <div class="solution__pair">
+        <img
+          src={img.antesDepoisNav}
+          alt="Before and after of Geopark navigation and status"
+          class="solution__img"
+          loading="lazy"
+        />
+        <img
+          src={img.antesDepoisLogin}
+          alt="Before and after of the Geopark login screen"
+          class="solution__img"
+          loading="lazy"
+        />
+      </div>
+    </article>
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- PROTOTYPE -->
+  <section class="container section">
+    <p class="label">Prototype</p>
+    <p class="section__body">
+      See the full navigable app flow in Figma.
+    </p>
+    <a
+      href="https://www.figma.com/proto/PClP6HgyBYYx644G5ieH3n/Geoparque?node-id=1180-1782&p=f&viewport=37%2C347%2C0.06&t=S39MDWd6FrfFipfF-1&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=1180%3A1782&page-id=1180%3A936"
+      class="proto__link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Open the prototype in Figma →
+    </a>
+  </section>
+
+  <div class="container"><DividerBar /></div>
+
+  <!-- VIDEO -->
+  <section class="container section">
+    <p class="label">Demo</p>
+    <p class="section__body">
+      A walkthrough of the app screens, recorded in 2024.
+    </p>
+    <div class="video__wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/2gF5wNMudb8"
+        title="Geopark Araripe app screens 2024"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    </div>
+  </section>
+
+  <ImpactBlock
+    number="80%"
+    primary="Reduction in the time taken by the assessment process."
+    secondary="The tool was in final testing with environmental managers by the end of my work in 2024."
+  />
+
+  <section class="container section next">
+    <p class="label">Next case</p>
+    <a href="/en/work/youse" class="next__link">
+      <span>YOUSE SEGUROS</span>
+      <span aria-hidden="true"> →</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .back {
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .back__link {
+    font-size: var(--fs-small);
+    color: var(--accent);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding-block: clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text);
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .hero__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  /* SECTIONS */
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .section__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  /* HISTORY */
+  .chapters {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    margin-top: 16px;
+  }
+
+  .chapter {
+    display: grid;
+    grid-template-columns: minmax(auto, 200px) 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .chapter__number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-chapter-number);
+    line-height: 0.9;
+    color: var(--accent);
+  }
+
+  .chapter__content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: var(--content-max);
+  }
+
+  .chapter__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+  }
+
+  .chapter__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  /* APPROACH */
+  .list-block {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .list-block__item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: var(--content-max);
+  }
+
+  .list-block__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+  }
+
+  .list-block__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  /* SOLUTION */
+  .solution {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .solution__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .solution__pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* PROTOTYPE */
+  .proto__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-body);
+    color: var(--accent);
+    text-decoration: none;
+    border: 2px solid var(--accent);
+    padding: 12px 20px;
+    width: max-content;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .proto__link:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* VIDEO */
+  .video__wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+
+  .video__wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 4px;
+  }
+
+  /* NEXT CASE */
+  .next__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    text-decoration: none;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .next__link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--accent);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .chapter {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .solution__pair {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,4 +1,6 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
 interface Props {
   number: string;
   primary: string;
@@ -6,11 +8,14 @@ interface Props {
 }
 
 const { number, primary, secondary } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="impact">
   <div class="container impact__inner">
-    <span class="impact__label">Impacto</span>
+    <span class="impact__label">{t('impact.label')}</span>
     <p class="impact__number">{number}</p>
     <p class="impact__primary">{primary}</p>
     {secondary && <p class="impact__secondary">{secondary}</p>}

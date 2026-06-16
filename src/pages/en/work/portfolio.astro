@@ -1,0 +1,462 @@
+---
+import Base from '../../../layouts/Base.astro';
+import DividerBar from '../../../components/DividerBar.astro';
+import HeroBar from '../../../components/HeroBar.astro';
+
+import contextRaw from '../../../../CONTEXT.md?raw';
+import referencesRaw from '../../../../REFERENCES.md?raw';
+import claudeRaw from '../../../../CLAUDE.md?raw';
+import planejamentoRaw from '../../../../portfolio-planejamento.md?raw';
+import arquiteturaRaw from '../../../../arquitetura-site.md?raw';
+import identidadeRaw from '../../../../identidade-visual.md?raw';
+import promptRaw from '../../../../prompt-prototipagem.md?raw';
+
+const anonymize = (text: string) => text
+  .replace(/Lemuel Monteiro/g, '[YOUR NAME]')
+  .replace(/lemuel\.webflow\.io/g, '[previous-portfolio]')
+  .replace(/lemuelmonteirom@gmail\.com/g, '[your-email@domain.com]')
+  .replace(/linkedin\.com\/in\/lemuelmonteiro/g, 'linkedin.com/in/[your-username]')
+  .replace(/lemuelmonteiro/gi, '[your-username]')
+  .replace(/lemueldesign\.com/g, '[your-domain].com');
+
+// The embedded files are the actual project documents and are kept in their
+// original Portuguese — they are the real artifacts that built this site.
+const kitFiles = [
+  {
+    name: 'CONTEXT.md',
+    description: 'Project goal, what a good outcome looks like and what to avoid. (In Portuguese.)',
+    content: anonymize(contextRaw),
+  },
+  {
+    name: 'REFERENCES.md',
+    description: 'Visual references and notes on the balance between aesthetics and technical feasibility. (In Portuguese.)',
+    content: anonymize(referencesRaw),
+  },
+  {
+    name: 'CLAUDE.md',
+    description: 'Instructions for the AI assistant: project identity and collaboration rules. (In Portuguese.)',
+    content: anonymize(claudeRaw),
+  },
+  {
+    name: 'portfolio-planejamento.md',
+    description: 'Editorial decisions: target audience, case selection, metrics and assets. (In Portuguese.)',
+    content: anonymize(planejamentoRaw),
+  },
+  {
+    name: 'arquitetura-site.md',
+    description: 'Site map, navigation decisions and content per page. (In Portuguese.)',
+    content: anonymize(arquiteturaRaw),
+  },
+  {
+    name: 'identidade-visual.md',
+    description: 'Design system: typography, palette, spacing, wireframes and components. (In Portuguese.)',
+    content: anonymize(identidadeRaw),
+  },
+  {
+    name: 'prompt-prototipagem.md',
+    description: 'Full brief for prototyping in Lovable, Stitch or similar. (In Portuguese.)',
+    content: anonymize(promptRaw),
+  },
+];
+
+
+const results = [
+  { number: '13', label: 'commits from start to finish', detail: 'from scaffold to deploy' },
+  { number: '7', label: 'pages published', detail: '4 cases, about, outside work, home' },
+  { number: '1', label: 'design system from scratch', detail: 'no CSS framework' },
+  { number: '0', label: 'images in the first deploy', detail: 'content before visuals' },
+];
+---
+
+<Base title="How this portfolio was built · Lemuel Monteiro">
+  <div class="container back">
+    <a href="/en" class="back__link">← Work</a>
+  </div>
+
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">THIS PORTFOLIO</h1>
+      <p class="hero__subtitle">Designer + Developer</p>
+      <p class="hero__meta">2025 · Juazeiro do Norte, Brazil</p>
+    </div>
+    <div class="hero__slot">
+      <img src="/portfolio/hero.png" alt="Screenshot of the lemueldesign.com portfolio" class="hero__img" loading="eager" />
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Context</p>
+    <p class="section__body">
+      A portfolio is the first filter in any hiring conversation. Using Behance, Notion or a generic
+      template solves the immediate need, but it creates a paradox: the site has to communicate how
+      you think and, if the site was made without thinking, what does it communicate?
+    </p>
+    <p class="section__body">
+      The decision to build it from scratch was part of the positioning: a designer who understands
+      product needs to be able to ship product.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">A positioning problem</p>
+    <p class="section__body">
+      Five years of experience across very different companies and sectors: consulting, insurtech,
+      construction. The risk was coming across as an unfocused generalist. The challenge was to
+      create a cohesive narrative without faking a specialization that doesn't exist.
+    </p>
+    <p class="section__body">
+      The solution was to select and order. Cases in reverse chronological order, from most recent
+      to oldest, each connected to the next, creating a chain of reading.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Content first</p>
+    <p class="section__body">
+      The process started with the text, not the design. The starting point was the previous
+      portfolio (Webflow) and LinkedIn: two records of the same work, written at different times and
+      for different audiences.
+    </p>
+    <p class="section__body">
+      The comparison revealed differences in tone and gaps in the history. The Webflow portfolio had
+      a more aspirational voice; LinkedIn was more technical and fragmented. The work was to
+      reconcile the two: adjust the history year by year, even out the tone and define each text's
+      role in the professional positioning.
+    </p>
+    <p class="section__body">
+      The question that guided this stage: what does this text need to do? For each section, a
+      different answer. The tagline needs to situate. The short bio needs to qualify. Each case
+      needs to show reasoning, not just the result.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">References</p>
+    <p class="section__body">
+      With the content settled, I went looking for examples to understand how designers I admire
+      present their own work.
+    </p>
+    <p class="section__body">
+      Four portfolios served as references: laurenlangdesign.com, kysondana.com, thatedchao.com and
+      tparkes.com. All minimalist, all with strong typography as the main element of hierarchy. A
+      brutalist aesthetic showed up as the common thread: no decoration, no gradient, no animation
+      for animation's sake. The layout serves the content.
+    </p>
+    <p class="section__body">
+      What got left out of the references was useful too. Sites with heavy motion, multiple palettes
+      or experimental layouts were discarded: beautiful in the prototype, expensive to maintain in
+      code.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Typography, style and prototype</p>
+    <p class="section__body">
+      With the references mapped out, I moved into the visual-exploration phase. Google Stitch came
+      in to experiment with component patterns: variations in type, scale, spacing. Lovable to test
+      layout and navigation structures.
+    </p>
+    <p class="section__body">
+      This phase was iterative. No decision was made all at once. The palette was reduced to the
+      minimum: off-white background, black for text, gray for secondary hierarchy and dark green as
+      the single accent. The typography settled on two weights from two families: Space Grotesk for
+      headings, Inter for body. A fluid scale with clamp() to work on any screen.
+    </p>
+    <p class="section__body">
+      The Lovable prototype validated the navigation structure before a single line of code.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Claude Code</p>
+    <p class="section__body">
+      With the design system defined and the structure validated, the build happened entirely in
+      Claude Code. The decision to move from Lovable to my own code was strategic: full control over
+      the visual language, a design system of my own and the ability to iterate on text and code in
+      the same environment.
+    </p>
+    <p class="section__body">
+      The foundation came first: Astro scaffold, folder organization, color tokens, type scale,
+      self-hosted fonts. No page before the base was ready.
+    </p>
+    <p class="section__body">
+      Then the component architecture: Base, Nav, Footer, CaseCard, ImpactBlock, DividerBar,
+      HeroBar, ImageSlot. ImageSlot as a placeholder let me publish the content before the images
+      were ready, without leaving the layout broken.
+    </p>
+    <p class="section__body">
+      The text for each case wasn't dropped in all at once. Each page went through rounds of
+      adjusting tone, length and what to include or cut.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Results</p>
+    <div class="results">
+      {results.map((r) => (
+        <div class="result">
+          <span class="result__number">{r.number}</span>
+          <div class="result__text">
+            <span class="result__label">{r.label}</span>
+            <span class="result__detail">{r.detail}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">The files</p>
+    <p class="section__body">
+      These are the documents that guided the building of this portfolio, with personal data removed.
+      They are kept in their original Portuguese — copy, adapt or use them as a reference for your
+      own process.
+    </p>
+    <div class="kit">
+      {kitFiles.map((file) => (
+        <details class="kit__file">
+          <summary class="kit__summary">
+            <span class="kit__name">{file.name}</span>
+            <span class="kit__desc">{file.description}</span>
+          </summary>
+          <pre class="kit__content"><code>{file.content}</code></pre>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section next">
+    <p class="label">Next case</p>
+    <a href="/en/work/starian" class="next__link">
+      <span>STARIAN · SIENGE</span>
+      <span aria-hidden="true"> →</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .back {
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .back__link {
+    font-size: var(--fs-small);
+    color: var(--accent);
+  }
+
+  .hero {
+    position: relative;
+    padding-block: clamp(48px, 6vw, 80px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text);
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .hero__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: var(--content-max);
+  }
+
+  .result {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .result__number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-impact-number);
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .result__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .result__label {
+    font-size: var(--fs-body);
+    line-height: 1.4;
+  }
+
+  .result__detail {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .results {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .kit {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--content-max);
+  }
+
+  .kit__file {
+    border-top: 1px solid var(--divider);
+  }
+
+  .kit__file:last-child {
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .kit__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .kit__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .kit__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-small);
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  .kit__desc {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .kit__file[open] .kit__summary {
+    padding-bottom: 16px;
+  }
+
+  .kit__content {
+    font-family: ui-monospace, 'Cascadia Code', 'Fira Mono', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    background: #F0F0EC;
+    padding: 24px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+
+  .kit__content code {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .next__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    text-decoration: none;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .next__link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--accent);
+  }
+</style>

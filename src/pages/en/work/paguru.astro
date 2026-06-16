@@ -1,0 +1,216 @@
+---
+import Base from '../../../layouts/Base.astro';
+import DividerBar from '../../../components/DividerBar.astro';
+import HeroBar from '../../../components/HeroBar.astro';
+
+const projects = [
+  {
+    number: '01',
+    title: 'System for dance schools',
+    description:
+      'Small and mid-sized schools relied on disconnected tools to manage students, payments and classes, which made operations and knowledge transfer between people difficult. I designed an integrated app (enrollment, attendance, payments, receipt issuing, interaction between teachers, students and managers) alongside a web dashboard for administrative tasks, with a Material Design-based interface. The result cut operational management time and made an affordable subscription model viable for this segment.',
+  },
+  {
+    number: '02',
+    title: 'PlantON (shift-management app)',
+    description:
+      'Hospital managers relied on WhatsApp groups to find available doctors, which made filling shifts slow and disorganized. I designed an app that connects managers and on-call doctors, with shift postings by criteria and social-media integration. The result removed the dependence on WhatsApp, cut the time to fill shifts and improved alignment between both sides.',
+  },
+  {
+    number: '03',
+    title: 'ExtraJud (legal lookups for notary offices)',
+    description:
+      'I worked on defining the problem, the target audience (notary holders, staff and exam candidates) and the app flows, with an interface based on Material Design / Material You. The project aimed to speed up legal lookups in notary-office operations through technology.',
+  },
+];
+---
+
+<Base title="Paguru Digital Solutions — Lemuel Monteiro">
+  <div class="container back">
+    <a href="/en" class="back__link">← Work</a>
+  </div>
+
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">PAGURU DIGITAL SOLUTIONS</h1>
+      <p class="hero__subtitle">UX/UI → Product Designer</p>
+      <p class="hero__meta">Sep 2020 to Feb 2022 · Juazeiro do Norte, Brazil</p>
+    </div>
+    <div class="hero__slot">
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Context</p>
+    <p class="section__body">
+      I worked on projects for external clients across several sectors: education, health, legal and
+      services. A role focused on product discovery, problem validation, scope definition, flows and
+      low- and high-fidelity prototyping.
+    </p>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section">
+    <p class="label">Three highlighted projects</p>
+    <div class="projects">
+      {projects.map((project) => (
+        <article class="project">
+          <div class="project__head">
+            <span class="project__number" aria-hidden="true">{project.number}</span>
+            <h3 class="project__title">{project.title}</h3>
+          </div>
+          <p class="project__description">{project.description}</p>
+          {project.number === '01' && (
+            <img src="/paguru/ludus.webp" alt="Screens of the Ludus system for dance schools" class="project__img" loading="lazy" />
+          )}
+          {project.number === '02' && (
+            <img src="/paguru/planton-extrajud.png" alt="Screens of the PlantON and ExtraJud apps" class="project__img" loading="lazy" />
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container section next">
+    <p class="label">Next case</p>
+    <a href="/en/work/portfolio" class="next__link">
+      <span>THIS PORTFOLIO</span>
+      <span aria-hidden="true"> →</span>
+    </a>
+  </section>
+</Base>
+
+<style>
+  .back {
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .back__link {
+    font-size: var(--fs-small);
+    color: var(--accent);
+  }
+
+  .hero {
+    position: relative;
+    padding-block: clamp(48px, 6vw, 80px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-case-title);
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text);
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .section__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .project {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .project__head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .project__number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    color: var(--accent);
+  }
+
+  .project__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-list-title);
+    line-height: 1.2;
+  }
+
+  .project__description {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .hero__img,
+  .project__img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .next__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    text-decoration: none;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .next__link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+    text-decoration-color: var(--accent);
+  }
+</style>

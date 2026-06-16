@@ -1,0 +1,178 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import DividerBar from '../../components/DividerBar.astro';
+import HeroBar from '../../components/HeroBar.astro';
+
+const cases = [
+  {
+    title: 'STARIAN · SIENGE',
+    description: 'AI discovery for bulk creation of payable entries.',
+    meta: '2025 to present',
+    href: '/en/work/starian',
+    image: '/sienge/desk.png',
+  },
+  {
+    title: 'GEOPARK ARARIPE',
+    description: 'Digitizing environmental assessment processes (UNESCO).',
+    meta: '2024',
+    href: '/en/work/geopark',
+    image: 'https://cdn.prod.website-files.com/61e2d593fa26ee0bf9afa87a/628143069a1231736ecfa8d7_Frame%203cover.png',
+  },
+  {
+    title: 'YOUSE SEGUROS',
+    description: 'Login with Brazilian taxpayer ID (CPF) and a CO2 calculator.',
+    meta: '2022 to 2024',
+    href: '/en/work/youse',
+    image: '/youse/telas-co2-2.png',
+  },
+  {
+    title: 'PAGURU DIGITAL SOLUTIONS',
+    description: 'Projects across education, health and legal.',
+    meta: '2020 to 2022',
+    href: '/en/work/paguru',
+    image: '/paguru/ludus.webp',
+  },
+];
+---
+
+<Base title="Lemuel Monteiro — Product Designer">
+  <section class="container hero">
+    <HeroBar />
+    <div class="hero__content">
+      <h1 class="hero__title">LEMUEL MONTEIRO</h1>
+      <p class="hero__subtitle">PRODUCT DESIGNER</p>
+      <p class="hero__lead">
+        Five years building digital products, with a consistent track record in sustainability.
+      </p>
+      <p class="hero__meta"><span class="hero__city">Juazeiro do Norte</span> · Brazil</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container about">
+    <p class="label">About</p>
+    <p class="about__body">
+      Product Designer with five years of experience in digital products. I currently work at Starian
+      (formerly Softplan), on the Sienge Accounts Payable team, and I keep a consistent track record
+      in sustainability: Geopark Araripe (UNESCO), GIR and Youse Seguros' CO2 calculator.
+    </p>
+    <a href="/en/about" class="about__more">→ Read more</a>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section id="work" class="container works">
+    <p class="label works__label">Work</p>
+    <ul class="works__list">
+      {cases.map((c, i) => (
+        <li>
+          <CaseCard title={c.title} description={c.description} meta={c.meta} href={c.href} image={c.image} />
+          {i < cases.length - 1 && <hr class="works__divider" />}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="container">
+    <DividerBar />
+  </div>
+
+  <section class="container works">
+    <p class="label works__label">About this site</p>
+    <CaseCard
+      title="THIS PORTFOLIO"
+      description="How this site was built, from content to deploy."
+      meta="2025"
+      href="/en/work/portfolio"
+      image="/portfolio/hero.png"
+    />
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(80px, 10vw, 140px) clamp(48px, 6vw, 80px);
+    padding-left: calc(var(--pad-x) + 24px);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: var(--content-max);
+  }
+
+  .hero__title {
+    font-size: var(--fs-hero);
+    letter-spacing: -0.02em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-top: -8px;
+  }
+
+  .hero__lead {
+    font-size: var(--fs-lead);
+    line-height: 1.45;
+  }
+
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+    margin-top: 16px;
+  }
+
+  .hero__city {
+    color: var(--accent);
+  }
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .about__body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    max-width: var(--content-max);
+  }
+
+  .about__more {
+    font-size: 16px;
+    width: max-content;
+  }
+
+  .about__more:hover {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    text-decoration-thickness: 2px;
+  }
+
+  .works__label {
+    margin-bottom: 48px;
+  }
+
+  .works__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .works__divider {
+    border: 0;
+    height: 1px;
+    background: var(--divider);
+    margin: 0;
+  }
+</style>

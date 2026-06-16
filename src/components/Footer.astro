@@ -1,4 +1,8 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
@@ -18,7 +22,7 @@ const year = new Date().getFullYear();
         </a>
       </div>
       <div class="footer__col footer__col--meta">
-        <span>Juazeiro do Norte · CE</span>
+        <span>{t('footer.location')}</span>
         <span>{year}</span>
       </div>
     </div>
@@ -67,12 +71,4 @@ const year = new Date().getFullYear();
   }
 
   @media (max-width: 640px) {
-    .footer__grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-    .footer__col--meta {
-      text-align: left;
-    }
-  }
-</style>
+    .footer_

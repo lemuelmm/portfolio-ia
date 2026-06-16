@@ -2,22 +2,42 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath, hasEnCounterpart } from '../i18n/utils';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = 'Product Designer baseado em Juazeiro do Norte, Ceará.' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const htmlLang = lang === 'en' ? 'en' : 'pt-BR';
+
+const { title, description = t('site.description') } = Astro.props;
+
+// hreflang: liga cada página à sua contraparte de idioma.
+// O caminho PT sempre existe. A contraparte EN só entra no hreflang quando a
+// página EN já foi criada (Fase 3) — evita apontar para uma URL que dá 404.
+const path = Astro.url.pathname;
+const ptPath = getLocalizedPath(path, 'pt-br');
+const ptUrl = new URL(ptPath, Astro.site).href;
+
+// Há contraparte EN real? (na própria página EN sempre há; em PT, depende.)
+const enReady = lang === 'en' || hasEnCounterpart(ptPath);
+const enUrl = enReady ? new URL(getLocalizedPath(path, 'en'), Astro.site).href : null;
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang={htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content={description} />
+    <link rel="alternate" hreflang="pt-BR" href={ptUrl} />
+    {enUrl && <link rel="alternate" hreflang="en" href={enUrl} />}
+    <link rel="alternate" hreflang="x-default" href={ptUrl} />
     <title>{title}</title>
   </head>
   <body>
