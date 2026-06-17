@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter.ttf");
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("fonts/SpaceGrotesk.ttf");
+  font-weight: 300 700;
+  font-style: normal;
+}
+
+:root {
+  --bg: #FAFAF7;
+  --ink: #0A0A0A;
+  --muted: #666666;
+  --line: #E0E0E0;
+  --accent: #2D4A2B;
+}
+
+@page {
+  size: A4;
+  margin: 11mm 15mm 10mm 15mm;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  font-size: 8.6pt;
+  line-height: 1.3;
+  -weasy-hyphens: none;
+}
+
+h1, h2, h3 {
+  font-family: "Space Grotesk", sans-serif;
+  margin: 0;
+}
+
+/* Header */
+.name {
+  font-size: 24pt;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.role {
+  font-size: 10.5pt;
+  font-weight: 500;
+  font-family: "Space Grotesk", sans-serif;
+  margin-top: 4px;
+  color: var(--accent);
+}
+.contact {
+  margin-top: 5px;
+  font-size: 8.5pt;
+  color: var(--muted);
+}
+.contact span { white-space: nowrap; }
+.contact .sep { margin: 0 6px; color: var(--line); }
+.contact a { color: var(--muted); text-decoration: none; }
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 7px 0;
+}
+
+/* Section */
+.section { margin-top: 8px; }
+.label {
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.lead { font-size: 9.2pt; line-height: 1.4; }
+.lead strong { font-weight: 600; }
+
+/* Experience entry */
+.job { margin-bottom: 7px; }
+.job:last-child { margin-bottom: 0; }
+.job-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.job-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11pt;
+  font-weight: 700;
+}
+.job-org { font-weight: 600; }
+.job-meta {
+  font-size: 8.3pt;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-left: 10px;
+}
+.job-sub {
+  font-size: 8.6pt;
+  color: var(--muted);
+  margin: 1px 0 4px 0;
+}
+ul.bul {
+  margin: 2px 0 0 0;
+  padding-left: 14px;
+}
+ul.bul li { margin-bottom: 1px; }
+ul.bul li::marker { color: var(--accent); }
+.metric { font-weight: 600; color: var(--accent); }
+
+/* Two column lower block */
+.cols {
+  display: flex;
+  gap: 26px;
+}
+.col { flex: 1; }
+
+.skillgroup { margin-bottom: 7px; }
+.skillgroup .k {
+  font-weight: 600;
+  font-size: 8.7pt;
+}
+.skillgroup .v {
+  font-size: 8.7pt;
+  color: #333;
+}
+
+.edu-item { margin-bottom: 6px; }
+.edu-item .t { font-weight: 600; font-size: 9pt; }
+.edu-item .m { font-size: 8.3pt; color: var(--muted); }
+.cert { font-size: 8.7pt; margin-bottom: 2px; }
+.cert::before { content: "·"; color: var(--accent); margin-right: 6px; }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="name">Lemuel Monteiro</div>
+    <div class="role">Product Designer Sênior · AI-first</div>
+    <div class="contact">
+      <span>Juazeiro do Norte, CE · Remoto</span>
+      <span class="sep">|</span>
+      <span><a href="mailto:lemuelmonteirom@gmail.com">lemuelmonteirom@gmail.com</a></span>
+      <span class="sep">|</span>
+      <span><a href="https://www.linkedin.com/in/lemuelmonteiro">linkedin.com/in/lemuelmonteiro</a></span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <section class="section" style="margin-top:0">
+    <p class="lead">
+      Product Designer com cinco anos de experiência em produtos digitais, hoje na
+      <strong>Jornada Financeira do Sienge</strong> (contas a pagar para construção civil).
+      Trabalho com mentalidade <strong>AI-first</strong>: desenho experiências de IA aplicada,
+      uso Claude, Google Stitch e Figma no discovery, e estruturo problemas ambíguos do
+      discovery ao delivery com decisões guiadas por dados de produto. Trilha consistente em
+      produtos financeiros (Sienge, seguros Youse) e em sustentabilidade.
+    </p>
+  </section>
+
+  <hr class="rule">
+
+  <section class="section" style="margin-top:0">
+    <div class="label">Experiência</div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Designer de Produto <span class="job-org">· Sienge / Starian (ex-Softplan)</span></div>
+        <div class="job-meta">Mai. 2025 — atual · Remoto</div>
+      </div>
+      <div class="job-sub">Time Contas a Pagar (KillBills), Jornada Financeira · SaaS para construção civil, 25+ anos de mercado</div>
+      <ul class="bul">
+        <li>Conduzo o discovery da evolução da <strong>criação de títulos com IA</strong>: upload de múltiplos documentos, extração automática de campos e revisão sequencial em lote, com abordagem AI-first.</li>
+        <li>Estruturo problemas ambíguos com matriz CSD e analytics de produto (Mixpanel, Amplitude) antes do Figma, lendo funis de adoção e pontos de queda.</li>
+        <li>Desenho interfaces densas para power users com Material UI (MUI X Data Grid) e navegação por teclado, em parceria com Produto, Engenharia e parceiros de canal.</li>
+        <li>Aplico benchmarking sistêmico (Expensify, QuickBooks, Linear, Superhuman) para conectar jornadas em uma experiência coesa.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Product Designer <span class="job-org">· Youse Seguros (via BOLD Brasil)</span></div>
+        <div class="job-meta">Jun. 2022 — Mar. 2024 · Remoto</div>
+      </div>
+      <div class="job-sub">Seguradora 100% digital · autenticação, seguro auto por quilometragem e produtos financeiros</div>
+      <ul class="bul">
+        <li>Redesenhei o acesso ao app e site migrando o login para CPF com perguntas de segurança, em rollout faseado e metrificado: <span class="metric">~60% de redução</span> em contatos de suporte de login.</li>
+        <li>Desenhei a <strong>Calculadora de CO2</strong> vinculada ao seguro por quilometragem, com <span class="metric">90%+ de satisfação</span> na tela principal; virou feature independente para toda a base e teve repercussão na imprensa (Terra, Revista Cobertura).</li>
+        <li>Atuei em endosso de contrato no app (dados cadastrais e coberturas), reduzindo dependência de canais de atendimento.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Designer de Produtos <span class="job-org">· Geopark Araripe (UNESCO)</span></div>
+        <div class="job-meta">Abr. 2024 — Dez. 2024 · Crato, CE</div>
+      </div>
+      <div class="job-sub">Digitalização dos processos de avaliação ambiental de áreas de preservação</div>
+      <ul class="bul">
+        <li>Liderei o time de desenvolvimento em ciclos ágeis e o discovery (entrevistas com avaliadores e gestores, protótipos de alta fidelidade, testes de usabilidade).</li>
+        <li>Defini app de coleta em campo e painel web de gestão com fórmula de mensuração: <span class="metric">redução de 80%</span> no tempo do processo de avaliação.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Product Designer <span class="job-org">· Paguru Digital Solutions</span></div>
+        <div class="job-meta">Set. 2020 — Fev. 2022 · Juazeiro do Norte, CE</div>
+      </div>
+      <div class="job-sub">Discovery e design para clientes em educação, saúde, jurídico e serviços</div>
+      <ul class="bul">
+        <li>Conduzi descoberta de produto, validação de problemas, definição de escopo, fluxos e prototipação em baixa e alta fidelidade, com contato frequente com clientes externos.</li>
+        <li>Destaques: sistema integrado para escolas de dança, PlantON (gestão de plantões médicos) e ExtraJud (consulta jurídica para cartórios).</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Designer de Produtos · Voluntário <span class="job-org">· GIR — Gestão Inteligente de Resíduos</span></div>
+        <div class="job-meta">Jan. 2025 — Mai. 2025 · Remoto</div>
+      </div>
+      <div class="job-sub">Análise e evolução da plataforma web da rede de gestão de resíduos sólidos.</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <div class="cols">
+    <div class="col">
+      <section class="section" style="margin-top:0">
+        <div class="label">Competências</div>
+        <div class="skillgroup">
+          <span class="k">AI-first:</span>
+          <span class="v">Claude (Code e Cowork), Google Stitch, design de experiências com IA aplicada</span>
+        </div>
+        <div class="skillgroup">
+          <span class="k">Discovery:</span>
+          <span class="v">analytics (Mixpanel, Amplitude), matriz CSD, pesquisa qualitativa, testes de usabilidade, métricas de adoção</span>
+        </div>
+        <div class="skillgroup">
+          <span class="k">Design:</span>
+          <span class="v">Figma, Material UI / MUI X Data Grid, interfaces densas para power users, navegação por teclado, design systems</span>
+        </div>
+        <div class="skillgroup">
+          <span class="k">Visão sistêmica:</span>
+          <span class="v">conexão de múltiplos produtos e jornadas, benchmarking, discovery a delivery</span>
+        </div>
+        <div class="skillgroup">
+          <span class="k">Idiomas:</span>
+          <span class="v">Português (nativo), Inglês (B2)</span>
+        </div>
+      </section>
+    </div>
+    <div class="col">
+      <section class="section" style="margin-top:0">
+        <div class="label">Formação</div>
+        <div class="edu-item">
+          <div class="t">Bacharelado em Sistemas de Informação</div>
+          <div class="m">Centro Universitário Paraíso (UniFAP) · 2017 — 2021</div>
+        </div>
+        <div class="label" style="margin-top:11px">Certificações</div>
+        <div class="cert">Google UX Design (Coursera)</div>
+        <div class="cert">Design for the 21st Century, com Don Norman (IxDF)</div>
+        <div class="cert">EF SET English Test — Upper Intermediate (B2)</div>
+      </section>
+    </div>
+  </div>
+
+</body>
+</html>
