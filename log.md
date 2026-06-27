@@ -72,3 +72,25 @@
 
 - Push para o Cloudflare (rodar `git push origin main` após resolver conflito de lock do git)
 - Slot do hero do Starian ainda usa iframe — considerar screenshot estático como fallback para OG image
+
+---
+
+# Atualização — 27 de junho de 2026
+
+## Estado atual do site
+
+- **Implementado e bilíngue.** Estrutura completa em Astro: home, `/sobre`, `/fora-do-trabalho`, 4 cases + meta-case `/work/portfolio`, com contraparte em `/en` para todas as páginas (seletor de idioma + `hreflang`).
+- **DNA brutalista aplicado**: tokens em `src/styles/tokens.css` (Space Grotesk + Inter, paleta creme/preto/verde), coluna única, `DividerBar`, `ImpactBlock` para números de impacto.
+- **Mídias reais** já aplicadas (ver entrada de 13/jun acima).
+
+## Documentos adicionados
+
+- `referencias-pesquisa.md` — curadoria ampla de portfólios de referência (2 grupos + 5 campos).
+- `avaliacao-portfolio.md` — avaliação do site × referências e mapa de próximos passos.
+
+## Pendências de evolução (detalhe em `avaliacao-portfolio.md`)
+
+- 🟢 Link "Ler mais" da home aponta para `#` (deveria ir a `/sobre`).
+- Decidir números sensíveis vs. NDA.
+- Gancho narrativo nos cases fundos; tratamento único dos slots; OG images; galeria de `/fora-do-trabalho`.
+- 2–3 movimentos canônicos e fallback estático do hero do Sienge.

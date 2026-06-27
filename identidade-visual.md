@@ -317,15 +317,20 @@ LinkedIn                                   2026
 
 ## Assets pendentes
 
-- Preview visual de cada case (4 imagens ou blocos tratados)
-- GIF do login Youse
-- Foto do Geopark (em campo ou no território do Araripe)
+Os tokens já estão implementados em `src/styles/tokens.css` e as mídias principais já foram aplicadas (ver [log.md](log.md)). Ainda faltam:
+
+- Foto de campo do Geopark (em campo ou no território do Araripe)
 - Galeria inicial de /fora-do-trabalho (fotografia, trilha, cozinha)
+- OG image por case
+- Tratamento visual único dos slots de imagem (proporção, fundo, borda padrão) — hoje cada case tem um "sotaque" diferente
 
 ---
 
 ## Próximos passos sugeridos
 
-1. **Stack de desenvolvimento**: decisão entre Astro (estático, bom para portfólio), 11ty (minimalista) ou HTML/CSS puro. Influencia como o conteúdo é estruturado em arquivos.
-2. **Prototipação no Figma** (opcional): um frame por página tipo, aplicando os tokens. Útil para ver a respiração real antes de codar.
-3. **Produção de assets** com specs concretas (dimensões, formato, duração de GIF, estilo de foto).
+Stack (Astro) e tokens já estão fechados. A evolução visual agora é de **acabamento**, detalhada em [avaliacao-portfolio.md](avaliacao-portfolio.md):
+
+1. **Spec de slot de imagem** consistente, aplicado a todos os cases de uma vez.
+2. **2–3 movimentos canônicos** (scroll-reveal, transição de página) — motion funcional, não ornamental, com `prefers-reduced-motion`. Inspiração: Lusion, Corentin Bernadou.
+3. **Microacabamento** (foco de teclado, estados de hover) — inspiração: Rauno Freiberg.
+4. **Produção dos assets pendentes** com specs concretas (dimensões, formato, estilo de foto).

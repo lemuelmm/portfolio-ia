@@ -7,6 +7,7 @@ Site pessoal e portfólio profissional. Alternativa ao LinkedIn: cada case tem U
 - **[Astro](https://astro.build/)** — gerador de site estático
 - **Space Grotesk** + **Inter** via `@fontsource`
 - **Shiki** para highlight de código
+- **i18n próprio** (PT/EN) com seletor de idioma e `hreflang` — ver `src/i18n/`
 
 ## Estrutura de páginas
 
@@ -16,9 +17,13 @@ Site pessoal e portfólio profissional. Alternativa ao LinkedIn: cada case tem U
 /work/geopark           Case Geopark Araripe
 /work/youse             Case Youse Seguros
 /work/paguru            Case Paguru Digital Solutions
+/work/portfolio         Meta-case "Sobre este site"
 /sobre                  Sobre, competências, educação
 /fora-do-trabalho       Vida pessoal e interesses
+/en/...                 Versão em inglês de todas as páginas acima
 ```
+
+Cada página PT tem contraparte em `/en` (seletor de idioma no topo, `hreflang` no `<head>`).
 
 ## Rodando localmente
 
@@ -50,9 +55,17 @@ Brutalismo minimalista. Tipografia pesada, paleta neutra com acento verde:
 
 Detalhes em [`identidade-visual.md`](identidade-visual.md) e arquitetura em [`arquitetura-site.md`](arquitetura-site.md).
 
-## Assets pendentes
+## Documentos de apoio
 
-- Preview visual de cada case (4 imagens)
-- GIF do login Youse
-- Foto do Geopark
-- Galeria para `/fora-do-trabalho`
+- [`referencias-pesquisa.md`](referencias-pesquisa.md) — curadoria ampla de portfólios de referência
+- [`avaliacao-portfolio.md`](avaliacao-portfolio.md) — avaliação do site atual × referências e próximos passos
+
+## Estado dos assets
+
+**Aplicados** (ver [`log.md`](log.md)): thumbnails de todos os cases na home, hero e telas do Youse (foto de time, telas da Calculadora de CO2, vídeo-mock), protótipo HTML embedado no Sienge, imagens do Paguru, hero do meta-case.
+
+**Pendentes:**
+- Foto de campo do Geopark (hoje usa imagem da CDN do Webflow)
+- Galeria de `/fora-do-trabalho` (hoje só a lista de interesses)
+- OG image por case (para compartilhamento em LinkedIn/WhatsApp)
+- Fallback estático do hero do Sienge (hoje depende de `<iframe>`)
