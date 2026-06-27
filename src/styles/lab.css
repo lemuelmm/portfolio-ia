@@ -1,0 +1,247 @@
+/* ==========================================================================
+   Sistema de motion do /lab
+   Estende os tokens do site (tokens.css) com timing, easing e utilitários.
+   Filosofia: motion a serviço da narrativa. Dose baixa, intenção alta.
+   ========================================================================== */
+
+:root {
+  /* Easings — curvas com personalidade, não o "ease" genérico do browser */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Durações */
+  --dur-fast: 180ms;
+  --dur-base: 420ms;
+  --dur-slow: 760ms;
+  --dur-xslow: 1100ms;
+
+  /* Ritmo do stagger (atraso entre elementos em sequência) */
+  --stagger: 60ms;
+
+  /* Glitch (cores do split cromático) — sobrescrevíveis por direção */
+  --glitch-a: #ff2e63; /* canal quente */
+  --glitch-b: var(--accent); /* canal frio = verde do DNA */
+  --glitch-x: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Progressive enhancement: só escondemos coisas quando há JS.
+   Sem JS (.no-js no <html>), todo o conteúdo nasce visível.
+   -------------------------------------------------------------------------- */
+
+html.js [data-reveal],
+html.js [data-reveal-stagger] > * {
+  opacity: 0;
+}
+
+/* Reveal simples: sobe e aparece */
+html.js [data-reveal] {
+  transform: translateY(26px);
+  transition: opacity var(--dur-slow) var(--ease-out-expo),
+    transform var(--dur-slow) var(--ease-out-expo);
+}
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Reveal em cascata: filhos entram em sequência */
+html.js [data-reveal-stagger] > * {
+  transform: translateY(22px);
+  transition: opacity var(--dur-base) var(--ease-out-expo),
+    transform var(--dur-base) var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+html.js [data-reveal-stagger].is-in > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Barras verdes do DNA, agora desenhadas em vez de só aparecerem.
+   .bar-draw (vertical, cresce de cima) / .bar-draw--h (horizontal, da esquerda)
+   -------------------------------------------------------------------------- */
+
+html.js .bar-draw {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform var(--dur-slow) var(--ease-out-expo);
+}
+html.js .bar-draw--h {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+html.js .bar-draw.is-in {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Stagger de letras (.char com --i). Usado pela tipografia cinética.
+   O texto real fica no aria-label; as letras são aria-hidden.
+   -------------------------------------------------------------------------- */
+
+.kinetic .char {
+  display: inline-block;
+  will-change: transform;
+}
+html.js .kinetic[data-reveal-chars] .char {
+  opacity: 0;
+  transform: translateY(0.7em) rotate(6deg);
+  transition: opacity var(--dur-base) var(--ease-out-expo),
+    transform var(--dur-base) var(--ease-out-back);
+  transition-delay: calc(var(--i, 0) * 28ms);
+}
+html.js .kinetic[data-reveal-chars].is-in .char {
+  opacity: 1;
+  transform: none;
+}
+
+/* Tipografia magnética — transição suave de volta ao repouso */
+[data-magnetic] .char {
+  display: inline-block;
+  transition: transform 280ms var(--ease-out-expo);
+}
+
+/* --------------------------------------------------------------------------
+   Glitch / digital-bruto
+   -------------------------------------------------------------------------- */
+
+/* Aberração cromática em repouso (sutil, lê em fundo claro) */
+.aberration {
+  text-shadow: var(--glitch-x) 0 0 var(--glitch-a), calc(-1 * var(--glitch-x)) 0 0 var(--glitch-b);
+}
+html.js .aberration--hover {
+  text-shadow: 0 0 0 transparent;
+  transition: text-shadow var(--dur-fast) var(--ease-out-expo);
+}
+html.js .aberration--hover:hover {
+  text-shadow: var(--glitch-x) 0 0 var(--glitch-a), calc(-1 * var(--glitch-x)) 0 0 var(--glitch-b);
+}
+
+/* Glitch de fatia: duplica o texto via ::before/::after e desloca em pulsos.
+   Requer data-text="..." no elemento. Bom para fundos escuros. */
+.glitch {
+  position: relative;
+}
+.glitch[data-text]::before,
+.glitch[data-text]::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+html.js .glitch[data-text]::before {
+  color: var(--glitch-a);
+  animation: glitch-a 3.6s steps(1) infinite;
+}
+html.js .glitch[data-text]::after {
+  color: var(--glitch-b);
+  animation: glitch-b 3.6s steps(1) infinite;
+}
+
+@keyframes glitch-a {
+  0%, 92%, 100% { clip-path: inset(0 0 100% 0); transform: none; }
+  93% { clip-path: inset(0 0 60% 0); transform: translateX(-4px); }
+  95% { clip-path: inset(40% 0 30% 0); transform: translateX(3px); }
+  97% { clip-path: inset(70% 0 0 0); transform: translateX(-2px); }
+}
+@keyframes glitch-b {
+  0%, 92%, 100% { clip-path: inset(100% 0 0 0); transform: none; }
+  94% { clip-path: inset(20% 0 55% 0); transform: translateX(4px); }
+  96% { clip-path: inset(55% 0 20% 0); transform: translateX(-3px); }
+  98% { clip-path: inset(80% 0 5% 0); transform: translateX(2px); }
+}
+
+/* Scanlines/CRT — overlay leve para blocos "tela" */
+.scanlines {
+  position: relative;
+  isolation: isolate;
+}
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.06) 0,
+    rgba(0, 0, 0, 0.06) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  z-index: 1;
+}
+.scanlines > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Cursor de terminal piscando */
+.caret::after {
+  content: '▮';
+  margin-left: 0.12em;
+  animation: blink 1s steps(1) infinite;
+  color: var(--accent);
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   Marquee (a faixa verde do topo vira informação em movimento)
+   -------------------------------------------------------------------------- */
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+}
+.marquee__track {
+  display: inline-flex;
+  flex: none;
+  gap: 2.5rem;
+  padding-right: 2.5rem;
+  animation: marquee var(--marquee-dur, 26s) linear infinite;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to { transform: translateX(-100%); }
+}
+
+/* --------------------------------------------------------------------------
+   Respeito total a quem pede menos movimento.
+   Tudo congela num estado final estático e legível.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal],
+  html.js [data-reveal-stagger] > *,
+  html.js .kinetic[data-reveal-chars] .char {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  html.js .bar-draw {
+    transform: none !important;
+  }
+  .glitch[data-text]::before,
+  .glitch[data-text]::after,
+  .aberration {
+    display: none;
+    text-shadow: none;
+  }
+  .marquee__track {
+    animation: none;
+  }
+  .caret::after {
+    animation: none;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

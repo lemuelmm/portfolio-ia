@@ -1,0 +1,271 @@
+---
+import LabBase from '../../layouts/LabBase.astro';
+
+const works = [
+  { title: 'STARIAN · SIENGE', desc: 'Discovery de IA para criação de títulos em lote.', year: '2025' },
+  { title: 'GEOPARK ARARIPE', desc: 'Digitalização dos processos de avaliação ambiental (UNESCO).', year: '2024' },
+  { title: 'YOUSE SEGUROS', desc: 'Login com CPF e Calculadora de CO2.', year: '2022–24' },
+];
+---
+
+<LabBase title="Lab · Híbrido (recomendado)">
+  <section class="hero container">
+    <span class="hero__bar bar-draw" aria-hidden="true"></span>
+    <div class="hero__content">
+      <p class="label" data-reveal>Portfólio · 2026</p>
+      <h1 class="hero__title kinetic" data-reveal-chars>LEMUEL MONTEIRO</h1>
+      <div data-reveal-stagger>
+        <p class="hero__sub" style="--i:0">PRODUCT DESIGNER</p>
+        <p class="hero__lead" style="--i:1">
+          Cinco anos construindo produtos digitais, com uma trilha consistente em sustentabilidade.
+        </p>
+        <p class="hero__meta" style="--i:2">Juazeiro do Norte · Ceará</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><hr class="rule bar-draw bar-draw--h" /></div>
+
+  <section class="works container">
+    <p class="label" data-reveal>Trabalhos</p>
+    <ul class="works__list">
+      {works.map((w) => (
+        <li class="work">
+          <a href="#" class="work__link">
+            <h2 class="work__title kinetic" data-reveal-chars>{w.title}</h2>
+            <span class="work__desc" data-reveal>{w.desc}</span>
+            <span class="work__year" data-reveal>{w.year}<span class="work__arrow"> →</span></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="impact">
+    <div class="container">
+      <p class="impact__label" data-reveal>Impacto · Youse Seguros</p>
+      <p class="impact__num" id="impactNum" data-count-to="60" data-count-suffix="%">60%</p>
+      <p class="impact__primary" data-reveal>
+        Redução em contatos de suporte relacionados a login e acesso.
+      </p>
+    </div>
+  </section>
+
+  <section class="next container">
+    <p class="label" data-reveal>Próximo case</p>
+    <a href="#" class="next__link" data-hover-scramble>GEOPARK ARARIPE →</a>
+  </section>
+
+  <footer class="foot container" data-reveal>
+    <p>Direção C — <strong>Híbrido (recomendado)</strong>. Espinha de tipografia cinética calma e
+    brutalista; o glitch entra <em>uma vez</em>, no clímax — o número de impacto sobe e dá um único
+    "snap" cromático ao assentar. Um piscar de glitch no link "próximo case". O resto respira.
+    É o "evoluir o DNA": ~90% sobriedade, ~10% expressão, tudo in-palette.</p>
+  </footer>
+</LabBase>
+
+<script>
+  import {
+    initReveals,
+    initCountUp,
+    initHoverScramble,
+    splitChars,
+  } from '../../scripts/lab-motion.js';
+
+  splitChars('[data-reveal-chars]');
+  initReveals('[data-reveal], [data-reveal-stagger], [data-reveal-chars], .bar-draw');
+  initHoverScramble();
+  initCountUp();
+
+  // O único glitch da página: um snap cromático quando o número assenta.
+  const num = document.getElementById('impactNum');
+  if (num && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    num.addEventListener('countdone', () => {
+      num.classList.add('snap');
+      setTimeout(() => num.classList.remove('snap'), 420);
+    });
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(90px, 13vw, 170px) clamp(60px, 8vw, 110px);
+    padding-left: calc(var(--pad-x) + 24px);
+  }
+  .hero__bar {
+    position: absolute;
+    left: var(--pad-x);
+    top: clamp(90px, 13vw, 170px);
+    height: clamp(120px, 18vw, 220px);
+    width: var(--bar-vertical);
+    background: var(--accent);
+  }
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    max-width: 860px;
+  }
+  .hero__title {
+    font-size: clamp(44px, 8.5vw, 96px);
+    letter-spacing: -0.03em;
+    line-height: 0.96;
+  }
+  .hero__sub {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 18px;
+  }
+  .hero__lead {
+    font-size: var(--fs-lead);
+    max-width: var(--content-max);
+    margin-bottom: 16px;
+  }
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+
+  .rule {
+    border: 0;
+    height: var(--bar-horizontal);
+    background: var(--accent);
+    margin: clamp(40px, 6vw, 80px) 0 0;
+  }
+
+  .works {
+    padding-block: clamp(70px, 10vw, 130px);
+  }
+  .works__list {
+    margin-top: 40px;
+    border-top: 1px solid var(--divider);
+  }
+  .work {
+    border-bottom: 1px solid var(--divider);
+  }
+  .work__link {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'title year' 'desc year';
+    gap: 8px 24px;
+    align-items: baseline;
+    padding: 30px 0;
+    color: var(--text);
+    transition: padding-left var(--dur-base) var(--ease-out-expo),
+      color var(--dur-base) var(--ease-out-expo);
+  }
+  .work__link:hover {
+    padding-left: 18px;
+    color: var(--accent);
+  }
+  .work__title {
+    grid-area: title;
+    font-size: clamp(26px, 4.5vw, 46px);
+    letter-spacing: -0.01em;
+    line-height: 1;
+    width: max-content;
+    max-width: 100%;
+  }
+  .work__title::after {
+    content: '';
+    display: block;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-base) var(--ease-out-expo);
+  }
+  .work__link:hover .work__title::after {
+    transform: scaleX(1);
+  }
+  .work__desc {
+    grid-area: desc;
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--text-muted);
+  }
+  .work__year {
+    grid-area: year;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .work__arrow {
+    display: inline-block;
+    transition: transform var(--dur-base) var(--ease-out-back);
+  }
+  .work__link:hover .work__arrow {
+    transform: translateX(8px);
+  }
+
+  .impact {
+    background: var(--accent);
+    color: var(--bg);
+    padding-block: clamp(100px, 14vw, 160px);
+    /* paleta do snap: in-DNA (menta clara + tinta) */
+    --snap-a: #bdf3cd;
+    --snap-b: #0a0a0a;
+  }
+  .impact__label {
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bg);
+  }
+  .impact__num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-impact-number);
+    line-height: 0.9;
+    margin: 16px 0 24px;
+    font-variant-numeric: tabular-nums;
+  }
+  .impact__num.snap {
+    animation: snap 380ms steps(1, end) 1;
+  }
+  @keyframes snap {
+    0% { text-shadow: none; transform: none; }
+    15% { text-shadow: 7px 0 0 var(--snap-a), -7px 0 0 var(--snap-b); transform: translateX(-3px); }
+    35% { text-shadow: -5px 0 0 var(--snap-a), 5px 0 0 var(--snap-b); transform: translateX(3px); }
+    55% { text-shadow: 3px 0 0 var(--snap-a), -3px 0 0 var(--snap-b); transform: translateX(-1px); }
+    100% { text-shadow: none; transform: none; }
+  }
+  .impact__primary {
+    font-size: 20px;
+    max-width: var(--content-max);
+  }
+
+  .next {
+    padding-block: clamp(70px, 10vw, 130px);
+  }
+  .next__link {
+    display: inline-block;
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    letter-spacing: -0.01em;
+    transition: color var(--dur-fast) var(--ease-out-expo);
+  }
+  .next__link:hover {
+    color: var(--accent);
+  }
+
+  .foot {
+    padding-bottom: 80px;
+    max-width: var(--content-max);
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    .work__link { grid-template-columns: 1fr; grid-template-areas: 'title' 'desc' 'year'; }
+  }
+</style>

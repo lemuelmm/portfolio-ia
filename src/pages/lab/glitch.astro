@@ -1,0 +1,269 @@
+---
+import LabBase from '../../layouts/LabBase.astro';
+
+const ticker = ['PRODUCT DESIGNER', 'SUSTENTABILIDADE', 'IA APLICADA A PRODUTO', 'JUAZEIRO DO NORTE · CE', 'DISPONÍVEL P/ PROJETOS'];
+
+const works = [
+  { id: '01', title: 'STARIAN · SIENGE', desc: 'Discovery de IA para criação de títulos em lote.', year: '2025' },
+  { id: '02', title: 'GEOPARK ARARIPE', desc: 'Digitalização de processos ambientais (UNESCO).', year: '2024' },
+  { id: '03', title: 'YOUSE SEGUROS', desc: 'Login com CPF e Calculadora de CO2.', year: '2022–24' },
+];
+---
+
+<LabBase title="Lab · Glitch / Digital-Bruto">
+  <div class="ticker marquee" aria-hidden="true">
+    <ul class="marquee__track">
+      {ticker.map((t) => <li>{t} <span class="ticker__dot">◆</span></li>)}
+    </ul>
+    <ul class="marquee__track">
+      {ticker.map((t) => <li>{t} <span class="ticker__dot">◆</span></li>)}
+    </ul>
+  </div>
+
+  <section class="hero container">
+    <p class="hero__sys caret">// carregando dossiê</p>
+    <h1 class="hero__title aberration aberration--hover" id="heroName" data-final="LEMUEL MONTEIRO">LEMUEL MONTEIRO</h1>
+    <p class="hero__sub" id="heroSub" data-final="PRODUCT DESIGNER">PRODUCT DESIGNER</p>
+    <p class="hero__lead">
+      Cinco anos construindo produtos digitais, com uma trilha consistente em sustentabilidade.
+    </p>
+  </section>
+
+  <section class="works container">
+    <p class="works__head">▌ ARQUIVO / TRABALHOS</p>
+    <ul class="works__list">
+      {works.map((w) => (
+        <li class="row">
+          <a href="#" class="row__link">
+            <span class="row__id">{w.id}</span>
+            <span class="row__title" data-hover-scramble>{w.title}</span>
+            <span class="row__desc">{w.desc}</span>
+            <span class="row__year">{w.year}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="impact scanlines">
+    <div class="container">
+      <p class="impact__label">&gt;&gt; IMPACTO_YOUSE.LOG</p>
+      <p class="impact__num glitch" data-text="60%" data-scramble data-scramble-dur="1100">60%</p>
+      <p class="impact__primary">
+        Redução em contatos de suporte relacionados a login e acesso.
+      </p>
+    </div>
+  </section>
+
+  <section class="next container">
+    <p class="next__label">▌ PRÓXIMO</p>
+    <a href="#" class="next__link aberration--hover" data-hover-scramble>GEOPARK ARARIPE →</a>
+  </section>
+
+  <footer class="foot container">
+    <p>Direção B — <strong>Glitch / Digital-Bruto</strong>. O site "boota": o nome se decodifica, a
+    faixa verde do DNA vira ticker, o trabalho é um arquivo de terminal e o número de impacto quebra
+    a tela. Humor e atitude, com glitch lento (sem flashes agressivos).</p>
+  </footer>
+</LabBase>
+
+<script>
+  import { scramble, initHoverScramble, initScrambleOnView } from '../../scripts/lab-motion.js';
+
+  const name = document.getElementById('heroName');
+  const sub = document.getElementById('heroSub');
+  if (name) {
+    scramble(name, name.dataset.final, 1100).then(() => {
+      if (sub) scramble(sub, sub.dataset.final, 700);
+    });
+  }
+  initHoverScramble();
+  initScrambleOnView();
+</script>
+
+<style>
+  .ticker {
+    position: sticky;
+    top: 44px;
+    z-index: 5;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding-block: 8px;
+  }
+  .ticker .marquee__track {
+    --marquee-dur: 30s;
+  }
+  .ticker li {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .ticker__dot {
+    opacity: 0.6;
+  }
+
+  .hero {
+    padding-block: clamp(70px, 11vw, 150px) clamp(50px, 8vw, 110px);
+  }
+  .hero__sys {
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero__title {
+    font-size: clamp(44px, 10vw, 110px);
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    --glitch-x: 2px;
+  }
+  .hero__sub {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 14px;
+  }
+  .hero__lead {
+    font-size: var(--fs-lead);
+    max-width: var(--content-max);
+    margin-top: 28px;
+  }
+
+  .works {
+    padding-block: clamp(60px, 9vw, 120px);
+  }
+  .works__head {
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .works__list {
+    border-top: 2px solid var(--text);
+  }
+  .row {
+    border-bottom: 1px solid var(--divider);
+  }
+  .row__link {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1.2fr) minmax(0, 1.4fr) auto;
+    gap: 20px;
+    align-items: baseline;
+    padding: 22px 12px;
+    color: var(--text);
+    font-family: var(--font-body);
+    transition: background var(--dur-fast) steps(2), color var(--dur-fast) steps(2);
+  }
+  .row__link:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .row__id {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  .row__link:hover .row__id {
+    color: var(--bg);
+  }
+  .row__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(18px, 2.4vw, 26px);
+    letter-spacing: 0.01em;
+  }
+  .row__desc {
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+  .row__link:hover .row__desc {
+    color: color-mix(in srgb, var(--bg) 80%, transparent);
+  }
+  .row__year {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .row__link:hover .row__year {
+    color: var(--bg);
+  }
+
+  .impact {
+    background: #0A0A0A;
+    color: var(--bg);
+    padding-block: clamp(100px, 14vw, 160px);
+    --glitch-a: #ff2e63;
+    --glitch-b: #38f9d7;
+  }
+  .impact__label {
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: #38f9d7;
+  }
+  .impact__num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-impact-number);
+    line-height: 0.9;
+    margin: 18px 0 26px;
+    --glitch-x: 3px;
+  }
+  .impact__primary {
+    font-size: 20px;
+    max-width: var(--content-max);
+  }
+
+  .next {
+    padding-block: clamp(70px, 10vw, 130px);
+  }
+  .next__label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .next__link {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .next__link:hover {
+    color: var(--accent);
+  }
+
+  .foot {
+    padding-bottom: 80px;
+    max-width: var(--content-max);
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 720px) {
+    .row__link {
+      grid-template-columns: 40px 1fr;
+      grid-template-areas: 'id title' '. desc' '. year';
+      gap: 6px 16px;
+    }
+    .row__id { grid-area: id; }
+    .row__title { grid-area: title; }
+    .row__desc { grid-area: desc; }
+    .row__year { grid-area: year; text-align: left; }
+  }
+</style>
