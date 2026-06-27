@@ -309,9 +309,31 @@ LinkedIn                                   2026
 
 ### Slot de imagem
 
-- Quando vazio: fundo levemente mais escuro que o background (`#F0F0EC`), nada dentro.
-- Quando preenchido: imagem ocupa todo o slot, sem moldura.
-- Aspect ratios padrão: 16:9 (hero), 4:3 (screenshot), 1:1 (galeria).
+Implementado em `src/components/ImageSlot.astro` (estado vazio) e como `<img>`/`<video>` full-width nos cases (estado preenchido). A avaliação ([avaliacao-portfolio.md](avaliacao-portfolio.md), ponto 4) apontou que hoje **cada case tem um "sotaque" visual diferente** (foto crua, telas flat, polaroid, CDN, iframe). O spec abaixo unifica o tratamento — aplicar de uma vez a todos os cases.
+
+**Regras fixas (valem para todo slot, vazio ou preenchido):**
+
+- **Largura:** full-width do container (`--container-max`), nunca limitada à coluna de texto (700px). A imagem é mais larga que o texto de propósito.
+- **Cantos:** `border-radius: 4px`. Sem moldura, sem sombra, sem borda.
+- **Fundo (vazio):** `var(--slot-empty)` (`#F0F0EC`). Nada dentro além de `aria-label`.
+- **Espaçamento:** mesmo gap vertical entre slots (`32px`) em todos os cases.
+
+**Proporções por contexto (usar a prop `ratio` do `ImageSlot`):**
+
+| Contexto | Proporção |
+|---|---|
+| Hero do case | `16/9` |
+| Screenshot / tela de produto | `4/3` |
+| Galeria (`/fora-do-trabalho`) | `1/1` |
+
+**Tratamento do conteúdo (o que padroniza o "sotaque"):**
+
+- **Telas de produto:** sempre sobre o mesmo fundo neutro (`--slot-empty` ou `--bg`), mesmo respiro nas bordas. Nada de fundos coloridos ou "polaroid" inconsistente entre cases.
+- **Fotos (time, campo):** ocupam o slot inteiro, sem tratamento especial. Uma por case, no máximo.
+- **Vídeo / iframe:** mesmo container, mesmo `border-radius: 4px` e mesma proporção dos slots de imagem (ver hero do Sienge — hoje destoa).
+- **Consistência:** no máximo **um tipo de composição** de telas por case. Não misturar tela flat + polaroid + mockup no mesmo case.
+
+**Legenda (opcional):** Inter 14px, `--text-muted`, logo abaixo do slot. Usada para creditar ferramenta/contexto (ex.: "Protótipo funcional criado com IA").
 
 ---
 
