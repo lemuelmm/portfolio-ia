@@ -14,15 +14,18 @@ Multi-page, não single-page. Razão principal: cada case vira URL isolada e com
 
 ```
 /                       Home
-├── /work/sienge        Case Sienge (Starian)
+├── /work/starian       Case Sienge (Starian)
 ├── /work/geopark       Case Geopark
 ├── /work/youse         Case Youse
 ├── /work/paguru        Case Paguru
+├── /work/portfolio     Meta-case "Sobre este site"
 ├── /sobre              Sobre + competências + como trabalho + educação
 └── /fora-do-trabalho   Vida pessoal
 ```
 
-Total: 7 páginas. Footer com contato presente em todas.
+Cada página tem contraparte em inglês sob `/en` (ex.: `/en/work/youse`, `/en/about`), com seletor de idioma no topo e `hreflang` no `<head>`.
+
+Total: 8 páginas em PT + 8 em EN. Footer com contato presente em todas. (O slug do case do Sienge é `starian`, não `sienge`.)
 
 ---
 
@@ -103,24 +106,30 @@ Cards sem parágrafo ou bullet. Tudo que importa fica dentro do /work/{slug}.
 
 - Multi-page (não single-page): cases viram URLs compartilháveis.
 - Ordem cronológica (não por peso).
-- Placeholder para imagens até ter assets finais.
 - /sobre e /fora-do-trabalho separados, dando espaço ao pessoal.
 - Contato só no footer. Sem página /contato.
+- **Stack: Astro** (estático), com tokens em `src/styles/tokens.css`. Decisão fechada.
+- **Bilíngue (PT/EN)** com i18n próprio e seletor de idioma. Implementado.
+- **Meta-case "Sobre este site"** (`/work/portfolio`) adicionado como 5ª entrada de trabalho.
 
 ---
 
 ## Assets pendentes
 
-- Preview visual de cada case (4 imagens)
-- GIF do login Youse
-- Foto do Geopark
-- Galeria para /fora-do-trabalho (fotografia, trilha, cozinha, etc.)
+(Tokens, layout e mídias principais já estão implementados — ver [log.md](log.md).)
+
+- Foto de campo do Geopark (hoje usa imagem da CDN do Webflow)
+- Galeria de /fora-do-trabalho — hoje só a lista de interesses, sem grid de fotos
+- OG image por case (compartilhamento em LinkedIn/WhatsApp)
+- Fallback estático do hero do Sienge (hoje depende de `<iframe>`)
 
 ---
 
 ## Próximos passos sugeridos
 
-1. Definir tokens visuais (tipografia, paleta, espaçamento) alinhados ao brutalismo das referências em [REFERENCES.md](REFERENCES.md).
-2. Esboço de layout (wireframe ou direto no Figma).
-3. Decisão de stack de desenvolvimento. Sugestões: Astro (estático, bom para portfólio), 11ty (minimalista), ou HTML/CSS puro.
-4. Produção dos assets pendentes.
+Tokens, wireframe e stack (Astro) já estão fechados e o site está implementado. Os próximos passos passam a ser de **evolução**, detalhados e priorizados em [avaliacao-portfolio.md](avaliacao-portfolio.md):
+
+1. Ganhos rápidos: corrigir o link "Ler mais" da home (aponta para `#`) e decidir números sensíveis vs. NDA.
+2. Narrativa: gancho de abertura nos cases fundos (Youse, Geopark).
+3. Assets: tratamento visual único dos slots + OG images + galeria de /fora-do-trabalho.
+4. Acabamento: 2–3 movimentos canônicos e fallback do hero do Sienge.

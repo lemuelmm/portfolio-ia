@@ -24,6 +24,8 @@ Quatro cases no total, com profundidade variável:
 | **Sienge (Starian/Softplan)** | Média/baixa | Cargo atual. Listar o que está sendo feito, sem detalhe de projeto específico. Manter genérico. |
 | **Paguru Digital Solutions** | Baixa | Mantém na timeline com o detalhe que já existe, mas despriorizado. Pela idade, não é hero case. |
 
+Além desses quatro, foi adicionado um **meta-case "Sobre este site"** (`/work/portfolio`), separado da timeline, contando como o próprio portfólio foi construído.
+
 ---
 
 ## Números e métricas
@@ -45,7 +47,8 @@ Quatro cases no total, com profundidade variável:
 
 ## Próximos passos sugeridos
 
-1. Rodar o prompt de recuperação do Sienge numa IA externa para extrair o que está sendo feito no cargo atual
-2. Revisar os cases Youse e Geopark aplicando a decisão sobre números (qualitativo vs quantitativo)
-3. Começar arquitetura de informação do site (páginas, hierarquia, fluxo de navegação)
-4. Inventário de ativos visuais disponíveis por case
+A arquitetura de informação, o conteúdo do Sienge e o inventário/aplicação de assets já foram feitos — o site está implementado e bilíngue. Segue em aberto e foi promovido a prioridade:
+
+1. **Revisar números sensíveis vs. NDA** nos cases Youse e Geopark (60%, 80%, >90% estão firmes no site via `ImpactBlock`). Decidir antes de divulgar.
+
+Demais passos de evolução (narrativa, acabamento, motion, camada editorial) estão priorizados em [avaliacao-portfolio.md](avaliacao-portfolio.md).

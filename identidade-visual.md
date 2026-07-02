@@ -309,23 +309,50 @@ LinkedIn                                   2026
 
 ### Slot de imagem
 
-- Quando vazio: fundo levemente mais escuro que o background (`#F0F0EC`), nada dentro.
-- Quando preenchido: imagem ocupa todo o slot, sem moldura.
-- Aspect ratios padrão: 16:9 (hero), 4:3 (screenshot), 1:1 (galeria).
+Implementado em `src/components/ImageSlot.astro` (estado vazio) e como `<img>`/`<video>` full-width nos cases (estado preenchido). A avaliação ([avaliacao-portfolio.md](avaliacao-portfolio.md), ponto 4) apontou que hoje **cada case tem um "sotaque" visual diferente** (foto crua, telas flat, polaroid, CDN, iframe). O spec abaixo unifica o tratamento — aplicar de uma vez a todos os cases.
+
+**Regras fixas (valem para todo slot, vazio ou preenchido):**
+
+- **Largura:** full-width do container (`--container-max`), nunca limitada à coluna de texto (700px). A imagem é mais larga que o texto de propósito.
+- **Cantos:** `border-radius: 4px`. Sem moldura, sem sombra, sem borda.
+- **Fundo (vazio):** `var(--slot-empty)` (`#F0F0EC`). Nada dentro além de `aria-label`.
+- **Espaçamento:** mesmo gap vertical entre slots (`32px`) em todos os cases.
+
+**Proporções por contexto (usar a prop `ratio` do `ImageSlot`):**
+
+| Contexto | Proporção |
+|---|---|
+| Hero do case | `16/9` |
+| Screenshot / tela de produto | `4/3` |
+| Galeria (`/fora-do-trabalho`) | `1/1` |
+
+**Tratamento do conteúdo (o que padroniza o "sotaque"):**
+
+- **Telas de produto:** sempre sobre o mesmo fundo neutro (`--slot-empty` ou `--bg`), mesmo respiro nas bordas. Nada de fundos coloridos ou "polaroid" inconsistente entre cases.
+- **Fotos (time, campo):** ocupam o slot inteiro, sem tratamento especial. Uma por case, no máximo.
+- **Vídeo / iframe:** mesmo container, mesmo `border-radius: 4px` e mesma proporção dos slots de imagem (ver hero do Sienge — hoje destoa).
+- **Consistência:** no máximo **um tipo de composição** de telas por case. Não misturar tela flat + polaroid + mockup no mesmo case.
+
+**Legenda (opcional):** Inter 14px, `--text-muted`, logo abaixo do slot. Usada para creditar ferramenta/contexto (ex.: "Protótipo funcional criado com IA").
 
 ---
 
 ## Assets pendentes
 
-- Preview visual de cada case (4 imagens ou blocos tratados)
-- GIF do login Youse
-- Foto do Geopark (em campo ou no território do Araripe)
+Os tokens já estão implementados em `src/styles/tokens.css` e as mídias principais já foram aplicadas (ver [log.md](log.md)). Ainda faltam:
+
+- Foto de campo do Geopark (em campo ou no território do Araripe)
 - Galeria inicial de /fora-do-trabalho (fotografia, trilha, cozinha)
+- OG image por case
+- Tratamento visual único dos slots de imagem (proporção, fundo, borda padrão) — hoje cada case tem um "sotaque" diferente
 
 ---
 
 ## Próximos passos sugeridos
 
-1. **Stack de desenvolvimento**: decisão entre Astro (estático, bom para portfólio), 11ty (minimalista) ou HTML/CSS puro. Influencia como o conteúdo é estruturado em arquivos.
-2. **Prototipação no Figma** (opcional): um frame por página tipo, aplicando os tokens. Útil para ver a respiração real antes de codar.
-3. **Produção de assets** com specs concretas (dimensões, formato, duração de GIF, estilo de foto).
+Stack (Astro) e tokens já estão fechados. A evolução visual agora é de **acabamento**, detalhada em [avaliacao-portfolio.md](avaliacao-portfolio.md):
+
+1. **Spec de slot de imagem** consistente, aplicado a todos os cases de uma vez.
+2. **2–3 movimentos canônicos** (scroll-reveal, transição de página) — motion funcional, não ornamental, com `prefers-reduced-motion`. Inspiração: Lusion, Corentin Bernadou.
+3. **Microacabamento** (foco de teclado, estados de hover) — inspiração: Rauno Freiberg.
+4. **Produção dos assets pendentes** com specs concretas (dimensões, formato, estilo de foto).

@@ -91,7 +91,7 @@ Brutalista, minimalista, suíço/tipográfico e editorial sóbrio. Coeso com a i
 
 ## A.3 — Product designers story-first
 
-### Simon Pan — https://www.simonpan.com/ `⚠ confirmar`
+### Simon Pan — https://www.simonpan.com/ `⚠ site inacessível na checagem — validar antes de usar`
 - **Campo/nicho:** Product Designer (ex-Uber, Google) — **a régua-ouro de case study**
 - **Estética:** minimal editorial · **Tipografia:** equilibrada · **Imagem:** apoio/protagonista pontual
 - **Estrutura de case:** narrativa única e desdobrada (campo → insight → decisão → impacto medido: ex. Uber, −34% erro de localização)
@@ -247,7 +247,7 @@ Fontes para expandir esta lista quando quiser mais opções:
 
 O que se repete nos portfólios fortes — independente do estilo:
 
-1. **Case = história, não galeria.** Os melhores (Simon Pan à frente) contam UM problema do começo ao fim: contexto → insight → decisão → impacto. Telas bonitas sem narrativa convencem menos.
+1. **Case = história, não galeria.** Os melhores contam UM problema do começo ao fim: contexto → insight → decisão → impacto (ver Case Study Club para exemplos). Telas bonitas sem narrativa convencem menos.
 2. **3 a 5 cases, com profundidade variável.** Consenso entre as fontes — chega para mostrar repertório sem cansar. Bate com o plano atual (Youse e Geopark fundos; Sienge e Paguru enxutos).
 3. **Tipografia carrega identidade** quando a imagem é fraca ou ainda não existe — exatamente a aposta brutalista do site.
 4. **Impacto em destaque.** Números isolados e grandes (ou linguagem qualitativa forte quando há NDA) ancoram a memória do recrutador.
@@ -263,12 +263,13 @@ O que se repete nos portfólios fortes — independente do estilo:
 
 Candidatos a promover para o `REFERENCES.md` (perfil: Product Designer com trilha de sustentabilidade, público recrutador + freela, estética brutalista, viabilidade em Astro):
 
-1. **Simon Pan** — referência nº 1 de **como contar um case**. Aplicável imediatamente a Youse e Geopark. *(estrutura narrativa)*
-2. **Rauno Freiberg** — teto de **craft de interface** dentro do minimal; mostra até onde o detalhe importa. *(acabamento)*
-3. **Seán Halpin** — **voz pessoal** num portfólio de product designer minimal; ajuda a evitar o tom genérico do "Sobre mim". *(tom)*
-4. **Corentin Bernadou** — meio-termo **suíço + motion comedido**: como adicionar 5% de ousadia sem trair o brutalismo. *(evolução do DNA)*
-5. **Brian Lovin** — modelo de **juntar trabalho + escrita + stack** num site só, organizado. *(arquitetura de conteúdo)*
-6. **Design do Brasil** (diretório) — para se posicionar entre **pares brasileiros** e achar mais referências nacionais. *(benchmark local)*
-7. **Tom Parkes** (já no DNA) — manter como **destino visual** quando os assets chegarem.
+1. **Rauno Freiberg** — teto de **craft de interface** dentro do minimal; mostra até onde o detalhe importa. *(acabamento)*
+2. **Seán Halpin** — **voz pessoal** num portfólio de product designer minimal; ajuda a evitar o tom genérico do "Sobre mim". *(tom)*
+3. **Tobias van Schneider** — portfólio como **marca pessoal editorial**, com voz própria (trabalho + blog + produtos). *(marca pessoal)*
+4. **Lusion** — referência de **motion/animação** de alto nível; norte para o "feeling" de movimento a dosar no site, **não** uma meta de WebGL. *(motion)*
+5. **Corentin Bernadou** — meio-termo **suíço + motion comedido**: como adicionar 5% de ousadia sem trair o brutalismo. *(evolução do DNA)*
+6. **Brian Lovin** — modelo de **juntar trabalho + escrita + stack** num site só, organizado. *(arquitetura de conteúdo)*
+7. **Design do Brasil** (diretório) — para se posicionar entre **pares brasileiros** e achar mais referências nacionais. *(benchmark local)*
+8. **Tom Parkes** (já no DNA) — manter como **destino visual** quando os assets chegarem.
 
-**Sugestão de uso:** os candidatos 1–3 atacam o ponto mais fraco hoje (texto/narrativa dos cases), que o próprio planejamento já marcou como prioridade. WebGL/3D (Bruno Simon, Lusion) ficam como inspiração de coragem conceitual, **não** como meta de implementação.
+**Sugestão de uso:** Rauno, Seán Halpin e Tobias atacam o que o site mais precisa hoje — acabamento, voz e identidade editorial. Lusion e Corentin Bernadou entram como **inspiração de motion**: roube o "feeling" de movimento em pequenas doses (transições, hover), sem perseguir WebGL/3D pesado, que não condiz com um site estático em Astro.
