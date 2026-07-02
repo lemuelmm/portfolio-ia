@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+import '../styles/lab.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Lab de motion e storytelling — protótipos.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <!-- Troca no-js -> js o mais cedo possível: evita flash de conteúdo escondido. -->
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <header class="lab-bar">
+      <a href="/lab" class="lab-bar__back">← lab</a>
+      <span class="lab-bar__tag">protótipo de motion</span>
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <style>
+      .lab-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px clamp(16px, 4vw, 32px);
+        font-family: var(--font-body);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        background: color-mix(in srgb, var(--bg) 80%, transparent);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--divider);
+      }
+      .lab-bar__back {
+        color: var(--accent);
+        font-weight: 500;
+      }
+      .lab-bar__tag {
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+      main {
+        padding-top: 44px;
+      }
+    </style>
+  </body>
+</html>

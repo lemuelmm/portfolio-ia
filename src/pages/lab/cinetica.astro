@@ -1,0 +1,236 @@
+---
+import LabBase from '../../layouts/LabBase.astro';
+
+const works = [
+  { title: 'STARIAN · SIENGE', desc: 'Discovery de IA para criação de títulos em lote.', year: '2025' },
+  { title: 'GEOPARK ARARIPE', desc: 'Digitalização dos processos de avaliação ambiental (UNESCO).', year: '2024' },
+  { title: 'YOUSE SEGUROS', desc: 'Login com CPF e Calculadora de CO2.', year: '2022–24' },
+];
+---
+
+<LabBase title="Lab · Tipografia Cinética">
+  <section class="hero container">
+    <span class="hero__bar bar-draw" aria-hidden="true"></span>
+    <div class="hero__content" data-reveal-stagger>
+      <p class="label" style="--i:0">Portfólio · 2026</p>
+      <h1 class="hero__title kinetic" style="--i:1" data-magnetic>LEMUEL MONTEIRO</h1>
+      <p class="hero__sub" style="--i:2">PRODUCT DESIGNER</p>
+      <p class="hero__lead" style="--i:3">
+        Cinco anos construindo produtos digitais, com uma trilha consistente em sustentabilidade.
+      </p>
+      <p class="hero__meta" style="--i:4">Juazeiro do Norte · Ceará</p>
+    </div>
+    <p class="hero__hint">mova o cursor sobre o nome ↑</p>
+  </section>
+
+  <section class="works container">
+    <p class="label" data-reveal>Trabalhos</p>
+    <ul class="works__list">
+      {works.map((w) => (
+        <li class="work">
+          <a href="#" class="work__link">
+            <h2 class="work__title kinetic" data-reveal-chars>{w.title}</h2>
+            <span class="work__desc" data-reveal>{w.desc}</span>
+            <span class="work__year" data-reveal>{w.year} <span class="work__arrow">→</span></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="impact scanlines">
+    <div class="container">
+      <p class="impact__label" data-reveal>Impacto · Youse Seguros</p>
+      <p class="impact__num">
+        <span data-count-to="60" data-count-suffix="%">60%</span>
+      </p>
+      <p class="impact__primary" data-reveal>
+        Redução em contatos de suporte relacionados a login e acesso.
+      </p>
+    </div>
+  </section>
+
+  <section class="next container">
+    <p class="label" data-reveal>Próximo case</p>
+    <a href="#" class="next__link kinetic" data-reveal-chars>GEOPARK ARARIPE →</a>
+  </section>
+
+  <footer class="foot container" data-reveal>
+    <p>Direção A — <strong>Tipografia Cinética</strong>. O tipo performa a narrativa: o nome reage ao
+    cursor, os títulos se montam ao entrar em cena, o número de impacto sobe como um odômetro.</p>
+  </footer>
+</LabBase>
+
+<script>
+  import {
+    initReveals,
+    initCountUp,
+    initMagneticType,
+    splitChars,
+  } from '../../scripts/lab-motion.js';
+
+  splitChars('[data-reveal-chars]');
+  initMagneticType('[data-magnetic]');
+  initReveals('[data-reveal], [data-reveal-stagger], [data-reveal-chars], .bar-draw');
+  initCountUp();
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 78vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(80px, 12vw, 160px);
+    padding-left: calc(var(--pad-x) + 24px);
+  }
+  .hero__bar {
+    position: absolute;
+    left: var(--pad-x);
+    top: clamp(80px, 12vw, 160px);
+    bottom: clamp(80px, 12vw, 160px);
+    width: var(--bar-vertical);
+    background: var(--accent);
+  }
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 900px;
+  }
+  .hero__title {
+    font-size: clamp(44px, 9vw, 104px);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    cursor: default;
+  }
+  .hero__sub {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead);
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  .hero__lead {
+    font-size: var(--fs-lead);
+    max-width: var(--content-max);
+  }
+  .hero__meta {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+  .hero__hint {
+    position: absolute;
+    right: var(--pad-x);
+    bottom: clamp(40px, 6vw, 80px);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .works {
+    padding-block: var(--gap-section);
+  }
+  .works__list {
+    margin-top: 40px;
+    border-top: 1px solid var(--divider);
+  }
+  .work {
+    border-bottom: 1px solid var(--divider);
+  }
+  .work__link {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'title year' 'desc year';
+    gap: 6px 24px;
+    align-items: baseline;
+    padding: 28px 0;
+    color: var(--text);
+    transition: padding-left var(--dur-base) var(--ease-out-expo);
+  }
+  .work__link:hover {
+    padding-left: 20px;
+    color: var(--accent);
+  }
+  .work__title {
+    grid-area: title;
+    font-size: clamp(28px, 5vw, 52px);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .work__desc {
+    grid-area: desc;
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--text-muted);
+  }
+  .work__year {
+    grid-area: year;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .work__arrow {
+    display: inline-block;
+    transition: transform var(--dur-base) var(--ease-out-back);
+  }
+  .work__link:hover .work__arrow {
+    transform: translateX(10px);
+  }
+
+  .impact {
+    background: var(--accent);
+    color: var(--bg);
+    padding-block: clamp(100px, 14vw, 160px);
+  }
+  .impact__label {
+    font-family: var(--font-body);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bg);
+  }
+  .impact__num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-impact-number);
+    line-height: 0.9;
+    margin: 16px 0 24px;
+    font-variant-numeric: tabular-nums;
+  }
+  .impact__primary {
+    font-size: 20px;
+    max-width: var(--content-max);
+  }
+
+  .next {
+    padding-block: var(--gap-section);
+  }
+  .next__link {
+    display: inline-block;
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-next-case);
+    color: var(--text);
+    letter-spacing: -0.01em;
+    transition: color var(--dur-fast) var(--ease-out-expo);
+  }
+  .next__link:hover {
+    color: var(--accent);
+  }
+
+  .foot {
+    padding-bottom: 80px;
+    max-width: var(--content-max);
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    .hero__hint { display: none; }
+    .work__link { grid-template-columns: 1fr; grid-template-areas: 'title' 'desc' 'year'; }
+  }
+</style>

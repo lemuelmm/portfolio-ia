@@ -1,0 +1,161 @@
+---
+import LabBase from '../../layouts/LabBase.astro';
+
+const directions = [
+  {
+    tag: 'A',
+    title: 'Tipografia Cinética',
+    href: '/lab/cinetica',
+    blurb: 'O tipo performa a narrativa. Nome magnético ao cursor, títulos que se montam ao entrar em cena, número de impacto em odômetro.',
+    steal: 'Energia e craft sem sair da sobriedade.',
+  },
+  {
+    tag: 'B',
+    title: 'Glitch / Digital-Bruto',
+    href: '/lab/glitch',
+    blurb: 'O site "boota": o nome se decodifica, a faixa verde vira ticker, o trabalho é um arquivo de terminal e o impacto quebra a tela.',
+    steal: 'Humor, atitude e personalidade forte.',
+  },
+  {
+    tag: 'C',
+    title: 'Híbrido — recomendado',
+    href: '/lab/hibrido',
+    blurb: 'Espinha cinética calma + glitch cirúrgico só no clímax. ~90% sobriedade, ~10% expressão, tudo in-palette. O caminho "evoluir o DNA".',
+    steal: 'O equilíbrio que eu enviaria a um recrutador.',
+  },
+];
+---
+
+<LabBase title="Lab de Motion · Lemuel Monteiro">
+  <section class="intro container">
+    <p class="label">Lab · exploração de movimento</p>
+    <h1 class="intro__title">Storytelling em<br />movimento</h1>
+    <p class="intro__lead">
+      Três alternativas de motion + narrativa para o portfólio, todas evoluindo o DNA brutalista
+      (creme · tinta · verde-floresta, Space Grotesk). A pele expressiva é <strong>tipografia
+      cinética</strong> e <strong>glitch/digital-bruto</strong>. Microinterações e scrollytelling
+      entram como base nas três.
+    </p>
+    <p class="intro__note">
+      Plano completo (estratégia, sistema de motion, stack, performance e roadmap) em
+      <code>plano-motion-storytelling.md</code>.
+    </p>
+  </section>
+
+  <section class="grid container">
+    {directions.map((d) => (
+      <a href={d.href} class="dir">
+        <span class="dir__tag">{d.tag}</span>
+        <span class="dir__body">
+          <span class="dir__title">{d.title}</span>
+          <span class="dir__blurb">{d.blurb}</span>
+          <span class="dir__steal">Roubar daqui: {d.steal}</span>
+        </span>
+        <span class="dir__arrow" aria-hidden="true">→</span>
+      </a>
+    ))}
+  </section>
+</LabBase>
+
+<style>
+  .intro {
+    padding-block: clamp(60px, 10vw, 130px) clamp(40px, 6vw, 70px);
+    max-width: 860px;
+  }
+  .intro__title {
+    font-size: clamp(48px, 10vw, 110px);
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    margin: 20px 0 32px;
+  }
+  .intro__lead {
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    max-width: var(--content-max);
+  }
+  .intro__note {
+    margin-top: 24px;
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+  .intro__note code,
+  code {
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 0.9em;
+    background: var(--slot-empty);
+    padding: 2px 6px;
+  }
+
+  .grid {
+    padding-bottom: clamp(80px, 12vw, 140px);
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid var(--text);
+  }
+  .dir {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 28px;
+    align-items: start;
+    padding: 36px 12px;
+    border-bottom: 1px solid var(--divider);
+    color: var(--text);
+    transition: background var(--dur-base) var(--ease-out-expo),
+      padding-left var(--dur-base) var(--ease-out-expo);
+  }
+  .dir__tag {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 40px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .dir__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: var(--content-max);
+  }
+  .dir__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.05;
+  }
+  .dir__blurb {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+  .dir__steal {
+    font-size: 14px;
+    color: var(--accent);
+  }
+  .dir__arrow {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 28px;
+    transition: transform var(--dur-base) var(--ease-out-back);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .dir:hover {
+      background: var(--slot-empty);
+      padding-left: 22px;
+    }
+    .dir:hover .dir__arrow {
+      transform: translateX(12px);
+      color: var(--accent);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .dir {
+      grid-template-columns: 44px 1fr;
+      grid-template-areas: 'tag arrow' 'body body';
+      gap: 16px;
+    }
+    .dir__tag { grid-area: tag; font-size: 32px; }
+    .dir__arrow { grid-area: arrow; justify-self: end; }
+    .dir__body { grid-area: body; }
+  }
+</style>
